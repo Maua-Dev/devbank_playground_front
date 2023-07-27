@@ -1,0 +1,23 @@
+@import '../../../../shared/styles/variables.scss';
+
+.button{
+    background-color: $dark-blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    padding: 0 48px;
+    border-radius: 10px;
+    height: 80px;
+}
+
+.button_title {
+    color: $white;
+    font-size: 32px;
+    font-family: $cabin-font;
+}
+
+.button:hover {
+    background-color: $dark-red;
+    cursor: pointer;
+}

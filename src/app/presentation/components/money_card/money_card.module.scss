@@ -1,0 +1,87 @@
+@import '../../../../shared/styles/variables.scss';
+
+.card {
+    width: 320px;
+}
+
+
+.card_primary {
+    background-color: $extra-light-blue;
+    padding: 12px;
+    margin-bottom: 16px;
+    border-radius: 10px;
+}
+
+.card_secondary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: $light-blue;
+    border-radius: 10px;
+    height: 160px;
+}
+
+.card_text {
+    font-family: $cabin-font;
+    font-size: 64px;
+    color: $white;
+}
+
+.card_text__sign{
+    font-family: $cabin-font;
+    font-size: 40px;
+    color: $white;
+}
+
+.button_counter{
+    display: flex;
+    flex-direction: row;
+    gap: 16px
+}
+
+.button{
+    width: 80%;
+    height: 48px;
+    background-color: $extra-light-blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.button_text{
+    font-family: $lexend-font;
+    font-size: 16px;
+    color: $dark-blue
+}
+
+.counter {
+    width: 20%;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 10px;
+
+}
+
+.counter_text{
+    color: $black;
+    font-size: 24px;
+    font-family: $lexend-font;
+}
+
+.card:hover .card_primary{
+    cursor: pointer;
+    background-color: $extra-light-red;
+}
+
+.card:hover .button{
+    background-color: $extra-light-red;
+}
+
+.card:hover .card_secondary{
+    background-color: $light-red;
+}
