@@ -3,17 +3,14 @@
 
 Template base for creating a front-end application using the React library.
 
-###### install packages
-    npm install
-    yarn install
 
 
 ## Scripts
 To run the application, it's important to use a package manager tool such as yarn or npm.
 
-###### start
-    npm run start
-    yarn start
+###### dev
+    npm run dev
+    yarn dev
 
 Runs the app in the development mode. 
 Open http://localhost:3000 to view it in your browser. 
