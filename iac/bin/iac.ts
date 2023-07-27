@@ -12,10 +12,11 @@ const env = {
 
 const stackName = process.env.STACK_NAME || 'SimpleReactTemplateStack'
 const projectName = process.env.PROJECT_NAME || 'SimpleReactTemplateFront'
+const stage = process.env.GITHUB_REF_NAME || 'dev'
 
 const tags = {
   'project': projectName,
-  'stage': 'TEST',
+  'stage': stage,
   'stack': 'FRONT',
   'owner': 'DevCommunity'
 }
