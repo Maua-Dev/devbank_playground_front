@@ -36,7 +36,7 @@ export class IacStack extends cdk.Stack {
       },
     })
 
-    let viewerCertificate = null
+    let viewerCertificate = cloudfront.ViewerCertificate.fromCloudFrontDefaultCertificate()
     if (stage === 'prod') {
         viewerCertificate = cloudfront.ViewerCertificate.fromAcmCertificate(
         Certificate.fromCertificateArn(this, projectName + 'Certificate-' + stage, acmCertificateArn),
