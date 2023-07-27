@@ -1,0 +1,30 @@
+@import '../../../../shared/styles/variables.scss';
+
+.cards{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+
+.main_title{
+  font-family: $lexend-font;
+  font-size: 32px;
+  width: 320px;
+}
+
+.buttons{
+  display: flex;
+  flex-direction: row;
+  gap: 32px
+}
