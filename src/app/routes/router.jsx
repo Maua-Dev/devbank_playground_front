@@ -1,14 +1,20 @@
 import { createBrowserRouter } from "react-router-dom";
-import Cards from "../presentation/pages/home/cards";
+import App from "../App";
+import Cards from "../presentation/pages/cards/cards";
+import Transactions from "../presentation/pages/transactions/transactions";
 
 const Router = createBrowserRouter([
     {
       path: "/",
-      element: <Cards action={'Depositar'}/>,
+      element: <App />,
       children: [
         {
           path: "/cards",
           element: <Cards action={'Depositar'}/>
+        },
+        {
+          path: "/transactions",
+          element: <Transactions/>
         }
       ]
     }

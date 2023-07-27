@@ -13,10 +13,11 @@ export default function MoneyCard ({value}) {
                 <p className={styles.button_text}>Quantidade</p>
             </div>
             <div className={styles.counter}>
+            <button className={styles.counter_symbol}>-</button>
                 <p className={styles.counter_text}>0</p>
+            <button className={styles.counter_symbol}>+</button>
             </div>
         </div>
-        
      </div>
      )
 }
