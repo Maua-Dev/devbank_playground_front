@@ -1,10 +1,10 @@
 import '../shared/styles/index.scss'
 import React from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Cards from "../presentation/pages/cards/cards";
-import Transactions from "../presentation/pages/transactions/transactions";
-import Home from "../presentation/pages/home/home";
-import Options from "../presentation/pages/options/options";
+import Cards from "./presentation/pages/cards/cards";
+import Transactions from "./presentation/pages/transactions/transactions";
+import Home from "./presentation/pages/home/home";
+import Options from "./presentation/pages/options/options";
 
 function App() {
   return (
