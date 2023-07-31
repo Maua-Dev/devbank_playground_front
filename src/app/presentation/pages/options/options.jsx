@@ -53,7 +53,7 @@ export default function Options({currentBalance}) {
             </div>
             <form className={styles.options_form}>
                 <div className={styles.options_cards}>
-                    <Card action={'Depositar'} type='submit' onClick={validateApiEndPointDeposit}/>
+                    <Card action={'Depositar'} type='submit' onClick={validateApiEndPointDeposit} />
                     <Card action={'Sacar'} to={'/withdraw'} type='submit' onClick={validateApiEndPointWithdraw}/>
                     <Card action={'Transações'} to={'/transactions'} type='submit' onClick={validateApiEndPointTransactions}/>
                 </div>

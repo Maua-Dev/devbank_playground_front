@@ -5,6 +5,7 @@ import Informations from '../../components/informations/informations';
 import Header from '../../components/header/header';
 import MoneyCard from '../../components/money-card/money_card';
 import { GlobalContext } from '../../../context/GlobalContext';
+import ErrorPopup from '../../components/error-popup/error_popup';
 
 export default function Cards ({action}) {
   
