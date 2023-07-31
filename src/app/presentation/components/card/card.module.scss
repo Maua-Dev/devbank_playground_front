@@ -1,0 +1,47 @@
+@import '../../../../shared/styles/variables.scss';
+
+.card_primary{
+    background-color: $extra-light-blue;
+    padding: 16px;
+    border-radius: 10px;
+}
+
+.card_secondary {
+    background-color: $light-blue;
+    width: 336px;
+    height: 432px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card_title{
+    color: $white;
+    font-family: $lexend-font;
+    font-size: 40px;
+    margin: 0;
+}
+
+.card_button{
+    padding: 0;
+    border: none;
+    text-decoration: none;
+}
+
+.card_button:hover .card_primary{
+    background-color: $extra-light-red;
+    cursor: pointer;
+}
+
+
+.card_button:hover .card_secondary{
+    background-color: $light-red;
+    cursor: pointer;
+
+}
+
+.card_button:hover .card_title{
+    color: $dark-red;
+    cursor: pointer;
+
+}

@@ -1,10 +1,11 @@
-import { Outlet } from "react-router-dom";
 import '../shared/styles/index.scss'
+import Router from './routes/router';
+import React from 'react';
 
 function App() {
   return (
     <div className="App">
-      <Outlet />
+      <Router />
     </div>
   );
 }

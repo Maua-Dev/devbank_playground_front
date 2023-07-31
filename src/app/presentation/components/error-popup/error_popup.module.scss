@@ -1,0 +1,32 @@
+@import '../../../../shared/styles/variables.scss';
+
+.popup{
+    background-color: $white;
+    width: 350px;
+    height: 400px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.popup_icon{
+    color: $extra-light-blue;
+    font-size: 160px;
+}
+
+.popup_title{
+    font-size: 32px;
+    font-family: $lexend-font;
+    color: $dark-blue;
+    margin: 0;
+}
+
+.popup_text{
+    font-size: 16px;
+    font-family: $lexend-font;
+    color: $dark-blue;
+    text-align: center;
+}
