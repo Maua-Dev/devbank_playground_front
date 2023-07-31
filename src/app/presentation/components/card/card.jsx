@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import styles from './card.module.scss'
 
 export default function Card({action, onClick}) {
