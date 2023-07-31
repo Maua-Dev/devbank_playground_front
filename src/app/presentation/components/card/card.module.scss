@@ -1,9 +1,5 @@
 @import '../../../../shared/styles/variables.scss';
 
-.card{
-    text-decoration: none;
-}
-
 .card_primary{
     background-color: $extra-light-blue;
     padding: 16px;
@@ -29,21 +25,22 @@
 .card_button{
     padding: 0;
     border: none;
+    text-decoration: none;
 }
 
-.card:hover .card_primary{
+.card_button:hover .card_primary{
     background-color: $extra-light-red;
     cursor: pointer;
 }
 
 
-.card:hover .card_secondary{
+.card_button:hover .card_secondary{
     background-color: $light-red;
     cursor: pointer;
 
 }
 
-.card:hover .card_title{
+.card_button:hover .card_title{
     color: $dark-red;
     cursor: pointer;
 
