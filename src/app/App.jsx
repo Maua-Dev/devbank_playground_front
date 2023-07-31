@@ -9,13 +9,13 @@ import Options from "./presentation/pages/options/options";
 function App() {
   return (
     <BrowserRouter>
-    <Routes>
-      <Route path="/deposit" element={<Cards action={'Depositar'}/>} />
-      <Route path="/" element={<Home />} />
-      <Route path="/withdraw" element={<Cards action={'Sacar'}/>} />
-      <Route path="/transactions" element={<Transactions />} />	
-      <Route path="/options" element={<Options currentBalance={0} />} />	
-    </Routes>
+      <Routes>
+        <Route path="/deposit/*" element={<Cards action={'Depositar'}/>} />
+        <Route path="/" element={<Home />} />
+        <Route path="/withdraw/*" element={<Cards action={'Sacar'}/>} />
+        <Route path="/transactions/*" element={<Transactions />} />	
+        <Route path="/options/*" element={<Options currentBalance={0} />} />	
+      </Routes>
   </BrowserRouter>
   );
 }
