@@ -1,23 +1,19 @@
-import { createBrowserRouter } from "react-router-dom";
-import App from "../App";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Cards from "../presentation/pages/cards/cards";
 import Transactions from "../presentation/pages/transactions/transactions";
+import Home from "../presentation/pages/home/home";
+import Options from "../presentation/pages/options/options";
 
-const Router = createBrowserRouter([
-    {
-      path: "/",
-      element: <App />,
-      children: [
-        {
-          path: "/cards",
-          element: <Cards action={'Depositar'}/>
-        },
-        {
-          path: "/transactions",
-          element: <Transactions/>
-        }
-      ]
-    }
+const Router = () => ([
+    <BrowserRouter>
+      <Routes>
+        <Route path="/deposit" element={<Cards action={'Depositar'}/>} />
+        <Route path="/" element={<Home />} />
+        <Route path="/withdraw" element={<Cards action={'Sacar'}/>} />
+        <Route path="/transactions" element={<Transactions />} />	
+        <Route path="/options" element={<Options currentBalance={0} />} />	
+      </Routes>
+    </BrowserRouter>
   ]);
 
 export default Router

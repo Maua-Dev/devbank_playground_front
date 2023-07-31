@@ -8,12 +8,13 @@
     font-family: $lexend-font;
     padding: 8px;
     border-radius: 10px;
+    gap: 16px;
 }
 
 .informations_balance{
     border-radius: 10px;
     background-color: $light-blue;
-    width: 30%;
+    width: 50%;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -23,7 +24,7 @@
 }
 
 .informations_deposited{
-    width: 30%;
+    width: 50%;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -32,12 +33,3 @@
     font-size: 24px;
 }
 
-.informations_final{
-    width: 30%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding-left: 8px;
-    color: $dark-blue;
-    font-size: 24px;
-}

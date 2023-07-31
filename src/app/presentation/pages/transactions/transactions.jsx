@@ -14,7 +14,7 @@ export default function Transactions(){
                 <div className={styles.transactions_historic}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint consectetur numquam omnis quasi fugiat quos animi. Tempore accusantium at molestiae maxime nostrum. Numquam eligendi atque delectus obcaecati eveniet voluptatum sint voluptatibus, provident, deleniti dignissimos, ipsa a temporibus voluptatem nihil blanditiis magnam quidem nam rerum vel laboriosam illum inventore error praesentium!</div>
                 <div className={styles.transactions_historic}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint consectetur numquam omnis quasi fugiat quos animi. Tempore accusantium at molestiae maxime nostrum. Numquam eligendi atque delectus obcaecati eveniet voluptatum sint voluptatibus, provident, deleniti dignissimos, ipsa a temporibus voluptatem nihil blanditiis magnam quidem nam rerum vel laboriosam illum inventore error praesentium!</div>
                 <div className={styles.transactions_button}>
-                    <Button title={'Voltar'}/>
+                    <Button title={'Voltar'} to={'/options'}/>
                 </div>
             </div>
         )

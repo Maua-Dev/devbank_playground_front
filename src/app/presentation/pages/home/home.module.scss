@@ -1,0 +1,47 @@
+@import '../../../../shared/styles/variables.scss';
+
+.home{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.home_div{
+    background-color: $extra-light-blue;
+    height: 70%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.home_logo{
+    width: 50%;
+}
+
+.home_form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    gap: 32px;
+}
+
+.home_input{
+    width: 100%;
+    display: flex;
+    font-family: $cabin-font;
+    background-color: $light-blue;
+    border: none;
+    height: 80px;
+    border-radius: 10px;
+    text-align: center;  
+    font-size: 40px;
+}
+
+.home_input::placeholder{
+    color: $dark-blue;
+}

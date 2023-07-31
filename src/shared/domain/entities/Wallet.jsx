@@ -24,4 +24,13 @@ export default class Wallet {
             twoHundred: this.twoHundred
         }
     }
+
+    getTotal() {
+        return (this.two * 2) + (this.five * 5) + (this.ten * 10) + (this.twenty * 20) + (this.fifty * 50) + (this.oneHundred * 100) + (this.twoHundred * 200);
+    }
+
+    setTwo(two) {
+        this.two = two;
+    }
+    
 }
