@@ -26,6 +26,11 @@
     margin: 0;
 }
 
+.card_button{
+    padding: 0;
+    border: none;
+}
+
 .card:hover .card_primary{
     background-color: $extra-light-red;
     cursor: pointer;

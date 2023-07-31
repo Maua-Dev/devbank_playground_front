@@ -27,7 +27,7 @@
     align-items: center;
     justify-content: center;
     width: 80%;
-    gap: 32px;
+    gap: 8px;
 }
 
 .home_input{
@@ -42,6 +42,35 @@
     font-size: 40px;
 }
 
+.home_label{
+    color: $dark-red;
+    font-family: $lexend-font;
+    padding-bottom: 16px;
+}
+
+.home_button{
+    background-color: $dark-blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    padding: 0 48px;
+    border-radius: 10px;
+    height: 60px;
+    border: none;
+}
+
+.home_button__title {
+    color: $white;
+    font-size: 32px;
+    font-family: $cabin-font;
+}
+
 .home_input::placeholder{
     color: $dark-blue;
+}
+
+.home_button:hover {
+    background-color: $dark-red;
+    cursor: pointer;
 }

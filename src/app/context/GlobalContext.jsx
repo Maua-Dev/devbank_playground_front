@@ -14,8 +14,10 @@ export default function GlobalContextProvider({ children }) {
 
     const wallet = new Wallet(two, five, ten, twenty, fifty, oneHundred, twoHundred);
 
+    const [apiEndPoint, setApiEndPoint] = useState('');
+
   return (
-    <GlobalContext.Provider value={{ two, setTwo, five, setFive, ten, setTen, twenty, setTwenty, fifty, setFifty, oneHundred, setOneHundred, twoHundred, setTwoHundred, wallet}}>
+    <GlobalContext.Provider value={{ two, setTwo, five, setFive, ten, setTen, twenty, setTwenty, fifty, setFifty, oneHundred, setOneHundred, twoHundred, setTwoHundred, wallet, apiEndPoint, setApiEndPoint}}>
       {children}
     </GlobalContext.Provider>
   );
