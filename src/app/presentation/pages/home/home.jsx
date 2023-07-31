@@ -30,7 +30,7 @@ export default function Home() {
                 <form className={styles.home_form} onSubmit={validateApiEndPoint}>
                     <input placeholder="Coloque aqui o endpoint da sua API" className={styles.home_input} value={window.localStorage.getItem('apiEndPoint')} onChange={setInputApiEndPoint}/>
                     {error ? <label className={styles.home_label} >Endpoint obrigatório</label> : ''}
-                    <button className={styles.home_button} type='submit'><p className={styles.home_button__title}>Entrar</p></button>
+                    <button className={styles.home_button} type='submit'><p className={styles.home_button__title}>Pinto</p></button>
 
                 </form>
             </div>
