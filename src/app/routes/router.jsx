@@ -4,7 +4,7 @@ import Transactions from "../presentation/pages/transactions/transactions";
 import Home from "../presentation/pages/home/home";
 import Options from "../presentation/pages/options/options";
 
-const Router = () => ([
+const Router = () => (
   <BrowserRouter>
     <Routes>
       <Route path="/deposit" element={<Cards action={'Depositar'}/>} />
@@ -14,6 +14,6 @@ const Router = () => ([
       <Route path="/options" element={<Options currentBalance={0} />} />	
     </Routes>
   </BrowserRouter>
-  ]);
+  );
 
 export default Router
