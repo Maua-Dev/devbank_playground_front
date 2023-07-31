@@ -1,0 +1,33 @@
+@import '../../../../shared/styles/variables.scss';
+
+.transactions{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.transactions_title{
+    font-family: $lexend-font;
+    background-color: $light-blue;
+    color: $white;
+    margin: 16px;
+    padding: 16px;
+    border-radius: 10px;
+    width: 90%;
+}
+
+.transactions_button{
+    padding: 16px;
+    position: relative;
+    bottom: 10px;
+}
+
+.transactions_historic{
+    font-family: $lexend-font;
+    background-color: $light-blue;
+    color: $dark-blue;
+    margin: 16px;
+    padding: 16px;
+    border-radius: 10px;
+    width: 90%;
+}

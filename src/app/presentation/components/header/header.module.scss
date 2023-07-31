@@ -1,0 +1,98 @@
+@import '../../../../shared/styles/variables.scss';
+
+.header{
+    background-color: $dark-blue;
+    width: 100%;
+    height: 120px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-family: $cabin-font;
+}
+
+.header_logo{
+    margin-left: 32px;
+    width: 368px;
+}
+
+.header_right{
+    margin-right: 32px;
+    width: 296px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header_account{
+    background-color: $white;
+    color: $dark-blue;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 8px 16px;
+    border-radius: 10px;
+    min-width: 150px;
+}
+
+.header_account__text{
+    margin: 0;
+}
+
+.header_interrogation{
+    background-color: $white;
+    width: 88px;
+    height: 88px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: ease-in-out 0.2s;
+}
+
+.header_interrogation__symbol{
+    font-size: 80px;
+    font-family: $cabin-font;
+    color: $dark-blue;
+}
+
+.header_interrogation_popup{
+    width: 296px;
+    background-color: $white;
+    position: absolute;
+    top: 80px;
+    right: 24px;
+    display: none;
+    border-radius: 10px;
+}
+
+.header_interrogation:hover .header_interrogation_popup {
+    display: block;
+}
+
+.header_interrogation:hover{
+    background-color: $light-red;
+}
+
+.header_interrogation__header{
+    background-color: $light-blue;
+    margin: 16px;
+    border-radius: 10px; 
+
+}
+
+.header_interrogation__title{
+    font-size: 24px;
+    font-family: $cabin-font;
+    color: $dark-blue;
+    padding: 24px 16px;
+}
+
+.header_interrogation__text{
+    font-size: 16px;
+    font-family: $cabin-font;
+    color: $dark-blue;
+    padding: 0 16px 24px 16px;
+}
