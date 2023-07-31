@@ -9,6 +9,10 @@ export default class Transaction {
         return new Transaction(json.type, json.value, json.date);
     }
 
+    static fromJsons(jsons) {
+        return jsons.map((json) => this.fromJson(json));
+    }
+
     static toJson() {
         return {
             type: this.type,
