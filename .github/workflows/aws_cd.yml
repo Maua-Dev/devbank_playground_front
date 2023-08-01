@@ -47,10 +47,10 @@ jobs:
             npm run build
         - name: Setup envs
           run: |
-            if [ -z "${{ env.AWS_REGION }}" ]; then
+            if [ -z "${{ vars.AWS_REGION }}" ]; then
               echo AWS_REGION=sa-east-1 >> $GITHUB_ENV
             else
-              echo AWS_REGION=${{ env.AWS_REGION }} >> $GITHUB_ENV
+              echo AWS_REGION=${{ vars.AWS_REGION }} >> $GITHUB_ENV
             fi
             echo AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID }} >> $GITHUB_ENV
             echo STACK_NAME=${{ env.STACK_NAME }} >> $GITHUB_ENV
