@@ -14,10 +14,10 @@ export default function GlobalContextProvider({ children }) {
 
     const wallet = new Wallet(two, five, ten, twenty, fifty, oneHundred, twoHundred);
 
-    const [apiEndPoint, setApiEndPoint] = useState('');
+    const [apiEndpoint, setApiEndpoint] = useState(localStorage.getItem('apiEndpoint'));
 
   return (
-    <GlobalContext.Provider value={{ two, setTwo, five, setFive, ten, setTen, twenty, setTwenty, fifty, setFifty, oneHundred, setOneHundred, twoHundred, setTwoHundred, wallet, apiEndPoint, setApiEndPoint}}>
+    <GlobalContext.Provider value={{ two, setTwo, five, setFive, ten, setTen, twenty, setTwenty, fifty, setFifty, oneHundred, setOneHundred, twoHundred, setTwoHundred, wallet, apiEndpoint, setApiEndpoint}}>
       {children}
     </GlobalContext.Provider>
   );

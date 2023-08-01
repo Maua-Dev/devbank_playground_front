@@ -6,17 +6,17 @@ import { Link } from "react-router-dom";
 
 export default function Home() {
 
-    const { setApiEndPoint } = useContext(GlobalContext);
+    const { apiEndpoint, setApiEndpoint } = useContext(GlobalContext);
     const [inputValid, setInputValid] = useState(true);
 
     function handleChange(event){
-        setApiEndPoint(event.target.value);
-        window.localStorage.setItem('apiEndPoint', event.target.value);
+        setApiEndpoint(event.target.value);
+        localStorage.setItem('apiEndpoint', event.target.value);
         setInputValid(true);
     }
 
     const handleLinkClick = (event) => {
-        if (!localStorage.getItem('apiEndPoint')) {
+        if (!localStorage.getItem('apiEndpoint')) {
           event.preventDefault();
           setInputValid(false); 
         }
@@ -26,7 +26,7 @@ export default function Home() {
         <div className={styles.home}>
             <div className={styles.home_div}>
                 <img src={logo} alt="Logo DevBank" className={styles.home_logo} />
-                <div className={styles.home_form}><input placeholder="Coloque aqui o endpoint da sua API" className={styles.home_input} value={window.localStorage.getItem('apiEndPoint')} onChange={handleChange}/>
+                <div className={styles.home_form}><input placeholder="Coloque aqui o endpoint da sua API" className={styles.home_input} value={apiEndpoint} onChange={handleChange}/>
                     {inputValid ? '' : <label className={styles.home_label} >Endpoint obrigatório</label>}</div>
                     
                     <Link to={'/options'} onClick={handleLinkClick} className={styles.home_button}><p className={styles.home_button__title}>Entrar</p></Link>

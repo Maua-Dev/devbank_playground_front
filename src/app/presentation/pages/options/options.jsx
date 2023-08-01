@@ -6,16 +6,16 @@ import styles from "./options.module.scss";
 
 export default function Options({currentBalance}) {
 
-    const { setApiEndPoint } = useContext(GlobalContext);
+    const { apiEndpoint, setApiEndpoint } = useContext(GlobalContext);
     const [inputValid, setInputValid] = useState(true);
 
     function handleChange(event){
-        setApiEndPoint(event.target.value);
-        window.localStorage.setItem('apiEndPoint', event.target.value);
+        setApiEndpoint(event.target.value);
+        localStorage.setItem('apiEndpoint', event.target.value);
     }  
 
     const handleLinkClick = (event) => {
-        if (!localStorage.getItem('apiEndPoint')) {
+        if (!localStorage.getItem('apiEndpoint')) {
           event.preventDefault();
           setInputValid(false); 
         }
@@ -36,7 +36,7 @@ export default function Options({currentBalance}) {
                     <Card action={'Transações'} to={'/transactions'} type='submit' onClick={handleLinkClick}/>
                 </div>
                 {inputValid ? '' :  <label className={styles.options_label} >Endpoint obrigatório</label>}
-                <input placeholder="Coloque aqui o endpoint da sua API" required className={styles.options_input} value={window.localStorage.getItem('apiEndPoint')} onChange={handleChange}/>
+                <input placeholder="Coloque aqui o endpoint da sua API" required className={styles.options_input} value={apiEndpoint} onChange={handleChange}/>
             </form>
             
         </div>
