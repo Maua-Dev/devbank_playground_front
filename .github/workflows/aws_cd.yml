@@ -86,7 +86,7 @@ jobs:
             echo "AWS_BUCKET='$AWS_BUCKET'" >> $GITHUB_ENV
         - name: Upload to S3
           run: |
-            aws s3 cp build s3://${{env.AWS_BUCKET}}/ --recursive --region ${{env.AWS_REGION}}
             aws s3 rm --recursive s3://${{env.AWS_BUCKET}}/static/
+            aws s3 cp build s3://${{env.AWS_BUCKET}}/ --recursive --region ${{env.AWS_REGION}}
         - name: Clear CDN cache
           run: aws cloudfront create-invalidation --distribution-id ${{env.CLOUD_FRONT_ID}} --paths "/*" --region us-east-1
