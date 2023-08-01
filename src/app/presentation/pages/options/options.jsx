@@ -7,41 +7,19 @@ import styles from "./options.module.scss";
 export default function Options({currentBalance}) {
 
     const { setApiEndPoint } = useContext(GlobalContext);
+    const [inputValid, setInputValid] = useState(true);
 
-    const [error, setError] = useState(false);
-
-    function setInputApiEndPoint(event){
+    function handleChange(event){
         setApiEndPoint(event.target.value);
         window.localStorage.setItem('apiEndPoint', event.target.value);
     }  
 
-    function validateApiEndPointDeposit(event){
-        event.preventDefault();
-        console.log('entrou')
-        if(window.localStorage.getItem('apiEndPoint') === ''){
-            setError(true);
-        } else {
-            window.location.href = '/deposit'
+    const handleLinkClick = (event) => {
+        if (!localStorage.getItem('apiEndPoint')) {
+          event.preventDefault();
+          setInputValid(false); 
         }
-    }
-
-    function validateApiEndPointWithdraw(event){
-        event.preventDefault();
-        if(window.localStorage.getItem('apiEndPoint') === ''){
-            setError(true);
-        } else {
-            window.location.href = '/withdraw'
-        }
-    }
-
-    function validateApiEndPointTransactions(event){
-        event.preventDefault();
-        if(window.localStorage.getItem('apiEndPoint') === ''){
-            setError(true);
-        } else {
-            window.location.href = '/transactions'
-        }
-    }
+      };
     
 
     return(
@@ -53,12 +31,12 @@ export default function Options({currentBalance}) {
             </div>
             <form className={styles.options_form}>
                 <div className={styles.options_cards}>
-                    <Card action={'Depositar'} type='submit' onClick={validateApiEndPointDeposit} />
-                    <Card action={'Sacar'} to={'/withdraw'} type='submit' onClick={validateApiEndPointWithdraw}/>
-                    <Card action={'Transações'} to={'/transactions'} type='submit' onClick={validateApiEndPointTransactions}/>
+                    <Card action={'Depositar'} to={'/deposit'}  type='submit' onClick={handleLinkClick} />
+                    <Card action={'Sacar'} to={'/withdraw'} type='submit' onClick={handleLinkClick}/>
+                    <Card action={'Transações'} to={'/transactions'} type='submit' onClick={handleLinkClick}/>
                 </div>
-                {error ? <label className={styles.options_label} >Endpoint obrigatório</label> : ''}
-                <input placeholder="Coloque aqui o endpoint da sua API" required className={styles.options_input} value={window.localStorage.getItem('apiEndPoint')} onChange={setInputApiEndPoint}/>
+                {inputValid ? '' :  <label className={styles.options_label} >Endpoint obrigatório</label>}
+                <input placeholder="Coloque aqui o endpoint da sua API" required className={styles.options_input} value={window.localStorage.getItem('apiEndPoint')} onChange={handleChange}/>
             </form>
             
         </div>
