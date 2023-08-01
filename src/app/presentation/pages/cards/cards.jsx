@@ -8,12 +8,12 @@ import { GlobalContext } from '../../../context/GlobalContext';
 
 export default function Cards ({action}) {
   
-  const { two, setTwo, five, setFive, ten, setTen, twenty, setTwenty, fifty, setFifty, oneHundred, setOneHundred, twoHundred, setTwoHundred, wallet } = useContext(GlobalContext);
+  const { two, setTwo, five, setFive, ten, setTen, twenty, setTwenty, fifty, setFifty, oneHundred, setOneHundred, twoHundred, setTwoHundred, wallet, userAccount } = useContext(GlobalContext);
 
 
   return (
     <div className={styles.cards}>
-      <Header name={'Victor Soller'} account={'000'} agency={'000'}/>
+      <Header name={userAccount.name} account={userAccount.account} agency={userAccount.agency}/>
       <Informations currentBalance={0} actionAmount={wallet.getTotal()} action={action === 'Depositar' ? 'depositada' : 'sacada'} />
       <div className={styles.main}>
         <span className={styles.main_title}>Selecione as cédulas e a quantidade que você deseja.</span>

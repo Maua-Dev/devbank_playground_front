@@ -1,6 +1,6 @@
 import axios from "axios";
-import Account from "../domain/entities/Account";
 import Transaction from "../domain/entities/Transaction";
+import Account from "../domain/entities/Account";
 export default class GlobalDatasource {
 
     constructor(url){ 
@@ -8,11 +8,8 @@ export default class GlobalDatasource {
     }
 
     async getAccount() {
-        console.log(axios.get(this.url));
-        axios.get(this.url).then((response) => {
-            console.log('AAA')
-            console.log(Account.fromJson(response.data))
-        })
+        const response = await axios.get(this.url);
+        return(Account.fromJson(response.data));
 
     }
 
@@ -27,6 +24,6 @@ export default class GlobalDatasource {
     }
 
     async getAllTransactions() {
-        await axios.post(`${this.url}/history`.then((response) => {
-            return Transaction.fromJsons(response.data)}))}
+        await axios.post(`${this.url}/history`).then((response) => {
+            return Transaction.fromJsons(response.data)})}
 }

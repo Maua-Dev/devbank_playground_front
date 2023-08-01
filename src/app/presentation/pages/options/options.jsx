@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../../context/GlobalContext";
 import Card from "../../components/card/card";
 import Header from "../../components/header/header";
@@ -6,9 +6,9 @@ import styles from "./options.module.scss";
 import { Link } from "react-router-dom";
 import { FaPencilAlt } from "react-icons/fa";
 
-export default function Options({ currentBalance }) {
-  const { apiEndpoint } = useContext(GlobalContext);
-  const [inputValid, setInputValid] = useState(true);
+export default function Options() {
+  const { apiEndpoint, userAccount, datasource, setName, setAgency, setAccount, setCurrentBalance } = useContext(GlobalContext);
+  const [inputValid, setInputValid] = useState(true)
 
   const handleLinkClick = (event) => {
     if (!localStorage.getItem("apiEndpoint")) {
@@ -17,15 +17,24 @@ export default function Options({ currentBalance }) {
     }
   };
 
+  useEffect(() => {
+    datasource.getAccount().then((response) => {
+      setName(response.name);
+      setAgency(response.agency);
+      setAccount(response.account);
+      setCurrentBalance(response.currentBalance);
+    });
+  },)
+
   return (
     <div className={styles.options}>
-      <Header name={"Victor Soller"} account={"000"} agency={"000"} />
+      <Header name={userAccount.name} account={userAccount.account} agency={userAccount.agency} />
       <div className={styles.options_informations}>
         <p className={styles.options_informations__text}>
           O que você deseja fazer?
         </p>
         <div className={styles.options_informations__balance}>
-          <p>Saldo atual: R$ {currentBalance}</p>
+          <p>Saldo atual: R$ {userAccount.currentBalance}</p>
         </div>
       </div>
       <div className={styles.options_div}>

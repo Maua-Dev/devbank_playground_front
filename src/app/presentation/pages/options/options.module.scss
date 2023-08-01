@@ -84,7 +84,7 @@
 
 .options_input__icon{
     font-size: 24px;
-    color: $black;
+    color: $dark-blue;
     padding-left: 8px;
 }
 
@@ -95,4 +95,8 @@
 
 .options_input::placeholder{
     color: $dark-blue;
+}
+
+.options_input__icon:hover{
+    color: $dark-red;
 }
