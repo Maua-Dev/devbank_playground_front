@@ -23,10 +23,10 @@ jobs:
             node-version: 18.x
         - name: Setting stage and stack name
           run: |
-            if [ -z "${{ env.AWS_REGION }}" ]; then
+            if [ -z "${{ vars.AWS_REGION }}" ]; then
             echo AWS_REGION=sa-east-1 >> $GITHUB_ENV
             else
-            echo AWS_REGION=${{ env.AWS_REGION }} >> $GITHUB_ENV
+            echo AWS_REGION=${{ vars.AWS_REGION }} >> $GITHUB_ENV
             fi
             echo "STAGE=${{ github.ref_name }}" 
             PROJECT_NAME=$(echo ${{ github.event.repository.name }} | sed -e 's/[-_]/ /g' | awk '{for(i=1;i<=NF;i++)sub(/./,toupper(substr($i,1,1)),$i)}1' | sed -e 's/ //g')
