@@ -1,6 +1,7 @@
 import React, { createContext, useState } from "react";
 import Wallet from "../../shared/domain/entities/Wallet";
 import GlobalDatasource from "../../shared/datasource/global_datasource";
+import Account from "../../shared/domain/entities/Account";
 
 export const GlobalContext = createContext();
 
@@ -13,6 +14,8 @@ export default function GlobalContextProvider({ children }) {
     const [oneHundred, setOneHundred] = useState(0);
     const [twoHundred, setTwoHundred] = useState(0);
 
+    const [account, setAccount] = useState(new Account('', '', ''));
+
     const wallet = new Wallet(two, five, ten, twenty, fifty, oneHundred, twoHundred);
 
     const [apiEndpoint, setApiEndpoint] = useState(localStorage.getItem('apiEndpoint'));
@@ -20,7 +23,7 @@ export default function GlobalContextProvider({ children }) {
     const datasource = new GlobalDatasource(apiEndpoint);
 
   return (
-    <GlobalContext.Provider value={{ two, setTwo, five, setFive, ten, setTen, twenty, setTwenty, fifty, setFifty, oneHundred, setOneHundred, twoHundred, setTwoHundred, wallet, apiEndpoint, setApiEndpoint, datasource}}>
+    <GlobalContext.Provider value={{ two, setTwo, five, setFive, ten, setTen, twenty, setTwenty, fifty, setFifty, oneHundred, setOneHundred, twoHundred, setTwoHundred, wallet, apiEndpoint, setApiEndpoint, datasource, account, setAccount}}>
       {children}
     </GlobalContext.Provider>
   );

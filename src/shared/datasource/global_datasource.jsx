@@ -1,5 +1,5 @@
 import axios from "axios";
-import Acconut from "../domain/entities/Account";
+import Account from "../domain/entities/Account";
 import Transaction from "../domain/entities/Transaction";
 export default class GlobalDatasource {
 
@@ -8,9 +8,12 @@ export default class GlobalDatasource {
     }
 
     async getAccount() {
-        await axios.get(this.url).then((response) => {
-            return Acconut.fromJson(response.data)
+        console.log(axios.get(this.url));
+        axios.get(this.url).then((response) => {
+            console.log('AAA')
+            console.log(Account.fromJson(response.data))
         })
+
     }
 
     async withdraw(wallet) {

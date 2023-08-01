@@ -1,4 +1,4 @@
-export default class Acconut {
+export default class Account {
     constructor(name, agency, account, current_balance) {
         this.name = name;
         this.agency = agency;
@@ -7,7 +7,7 @@ export default class Acconut {
     }
 
     static fromJson(json) {
-        return new Acconut(json.name, json.agency, json.account, json.current_balance);
+        return new Account(json.name, json.agency, json.account, json.current_balance);
     }
 
     static toJson() {

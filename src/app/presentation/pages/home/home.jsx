@@ -5,7 +5,7 @@ import { GlobalContext } from "../../../context/GlobalContext";
 import { Link } from "react-router-dom";
 
 export default function Home() {
-  const { apiEndpoint, setApiEndpoint } = useContext(GlobalContext);
+  const { apiEndpoint, setApiEndpoint, datasource, account, setAccount } = useContext(GlobalContext);
   const [inputValid, setInputValid] = useState(true);
 
   function handleChange(event) {
@@ -25,6 +25,11 @@ export default function Home() {
     ) {
       event.preventDefault();
       setInputValid(false);
+    } else {
+      datasource.getAccount().then((response) => {
+        console.log(response);
+        setAccount(response);
+      });
     }
   };
 
