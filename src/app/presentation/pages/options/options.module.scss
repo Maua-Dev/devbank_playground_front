@@ -50,23 +50,27 @@
 
 .options_input{
     width: 100%;
-    display: flex;
     font-family: $cabin-font;
     background-color: $light-blue;
     border: none;
     height: 72px;
     border-radius: 10px;
     text-align: center;  
-    font-size: 40px;
+    font-size: 32px;
     margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
 }
 
-.options_form{
+.options_div{
     border: none;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 16px;
+    width: 80%;
 }
 
 .options_card{
@@ -76,6 +80,17 @@
 .options_label{
     color: $dark-red;
     font-family: $lexend-font;
+}
+
+.options_input__icon{
+    font-size: 24px;
+    color: $black;
+    padding-left: 8px;
+}
+
+.options_input__text{
+    margin: 0 auto;
+    overflow: scroll;
 }
 
 .options_input::placeholder{

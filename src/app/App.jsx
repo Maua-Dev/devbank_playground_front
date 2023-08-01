@@ -6,12 +6,24 @@ import Cards from "./presentation/pages/cards/cards";
 import Transactions from "./presentation/pages/transactions/transactions";
 import Options from "./presentation/pages/options/options";
 import { GlobalContext } from "./context/GlobalContext";
+import axios from "axios";
 
 function App() {
 
   const { apiEndpoint } = useContext(GlobalContext);
 
-  console.log(apiEndpoint)
+    axios.interceptors.request.use(function (config) {
+      return config;
+    }, function (error) {
+      return Promise.reject(error);
+    });
+
+  axios.interceptors.response.use(function (response) {
+      return response;
+    }, function (error) {
+      return Promise.reject(error);
+    });
+
 
   return (
     <div className="App">
@@ -20,7 +32,7 @@ function App() {
           <Route
             path="/deposit"
             element={
-              apiEndpoint ? (
+              apiEndpoint && apiEndpoint.includes('.') ? (
                 <Cards action={"Depositar"} />
               ) : (
                 <Navigate to="/" />
@@ -31,7 +43,7 @@ function App() {
           <Route
             path="/withdraw"
             element={
-              apiEndpoint ? (
+              apiEndpoint && apiEndpoint.includes('.') ? (
                 <Cards action={"Sacar"} />
               ) : (
                 <Navigate to="/" />
@@ -41,14 +53,18 @@ function App() {
           <Route
             path="/transactions"
             element={
-              apiEndpoint ? (
+              apiEndpoint && apiEndpoint.includes('.')  ? (
                 <Transactions />
               ) : (
                 <Navigate to="/" />
               )
             }
           />
-          <Route path="/options" element={<Options currentBalance={0} />} />
+          <Route path="/options" element={ apiEndpoint && apiEndpoint.includes('.') ? (
+                <Options currentBalance={0} />
+              ) : (
+                <Navigate to="/" />
+              )} />
         </Routes>
       </BrowserRouter>
     </div>

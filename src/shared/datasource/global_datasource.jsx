@@ -1,20 +1,7 @@
 import axios from "axios";
 import Acconut from "../domain/entities/Account";
 import Transaction from "../domain/entities/Transaction";
-
-axios.interceptors.request.use(function (config) {
-    return config;
-  }, function (error) {
-    return Promise.reject(error);
-  });
-
-axios.interceptors.response.use(function (response) {
-    return response;
-  }, function (error) {
-    return Promise.reject(error);
-  });
-
-class GlobalDatasource {
+export default class GlobalDatasource {
 
     constructor(url){ 
         this.url = url;
@@ -31,7 +18,7 @@ class GlobalDatasource {
             return response.data})
     }
 
-    async deposit( wallet) {
+    async deposit(wallet) {
         await axios.post(`${this.url}/deposit`, wallet.toJson()).then((response) => {
             return response.data})
     }
