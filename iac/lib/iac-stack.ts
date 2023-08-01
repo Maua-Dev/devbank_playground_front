@@ -46,7 +46,7 @@ export class IacStack extends cdk.Stack {
         },
         )
     }
-
+    
     const cloudFrontWebDistribution = new cloudfront.CloudFrontWebDistribution(this, 'CDN', {
       comment: projectName + 'Distribution ' + stage,
       originConfigs: [
@@ -69,8 +69,16 @@ export class IacStack extends cdk.Stack {
         },
       ],
       viewerCertificate: viewerCertificate,
+      errorConfigurations: [
+        {
+          errorCode: 403,
+          responseCode: 200,
+          responsePagePath: '/index.html',
+          errorCachingMinTtl: 0,
+        },
+      ],
     })
-
+    
     const cfnDistribution = cloudFrontWebDistribution.node.defaultChild as cloudfront.CfnDistribution
 
     cfnDistribution.addPropertyOverride('DistributionConfig.Origins.0.OriginAccessControlId', oac.getAtt('Id'))
