@@ -16,7 +16,7 @@ function App() {
         <Route path="/transactions" element={<Transactions />} />	
         <Route path="/options" element={<Options currentBalance={0} />} />	
       </Routes>
-  </BrowserRouter>
+    </BrowserRouter>
   );
 }
 
