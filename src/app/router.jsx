@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Cards from "../presentation/pages/cards/cards";
-import Transactions from "../presentation/pages/transactions/transactions";
-import Home from "../presentation/pages/home/home";
-import Options from "../presentation/pages/options/options";
+import Cards from "./presentation/pages/cards/cards";
+import Transactions from "./presentation/pages/transactions/transactions";
+import Home from "./presentation/pages/home/home";
+import Options from "./presentation/pages/options/options";
 
 const Router = () => ([
     <BrowserRouter>
