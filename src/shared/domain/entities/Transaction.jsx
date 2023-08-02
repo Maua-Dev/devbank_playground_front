@@ -1,12 +1,13 @@
 export default class Transaction {
-    constructor(type, value, date) {
+    constructor(type, value, date, currentBalance) {
         this.type = type;
         this.value = value;
         this.date = date;
+        this.currentBalance = currentBalance;
     }
 
     static fromJson(json) {
-        return new Transaction(json.type, json.value, json.timestamp);
+        return new Transaction(json.type, json.value, json.timestamp, json.current_balance);
     }
 
     static fromJsons(jsons) {
@@ -17,8 +18,8 @@ export default class Transaction {
         return {
             "type": this.type,
             "value": this.value,
-            "timestamp": this.date
-
+            "timestamp": this.date,
+            "current_balance": this.currentBalance
         }
     }
 }
