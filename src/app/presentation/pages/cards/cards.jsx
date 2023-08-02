@@ -82,7 +82,7 @@ export default function Cards({ action }) {
   );
 
   return (
-    <div className={styles.cards}>
+    <div className={isError ? styles.cards_error : styles.cards}>
       {isError ? (
           <ErrorPopup
             message={errorMessage}

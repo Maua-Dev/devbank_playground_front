@@ -9,6 +9,16 @@
   margin-bottom: 16px;
 }
 
+.cards_error{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
+  pointer-events: none;
+}
+
 .main {
   display: flex;
   flex-direction: row;
