@@ -87,7 +87,6 @@ export default function Transactions() {
           {transactions.map((element) => {
             let date = new Date(element.date).toString();
             date = date.substring(4, date.length - 38);
-            console.log(date);
             return (
               <>
                 {element.type === "deposit" ? (
@@ -109,6 +108,10 @@ export default function Transactions() {
                         <span className={styles.transactions_span}>DATA:</span>
                         <p className={styles.transactions_value}>{date}</p>
                       </div>
+                      <div>
+                        <span className={styles.transactions_span}>SALDO:</span>
+                        <p className={styles.transactions_value}>{element.current_value}</p>
+                      </div>
                     </div>
                   </div>
                 ) : (
@@ -129,6 +132,10 @@ export default function Transactions() {
                       <div>
                         <span className={styles.transactions_span}>DATA:</span>
                         <p className={styles.transactions_value}>{date}</p>
+                      </div>
+                      <div>
+                        <span className={styles.transactions_span}>SALDO:</span>
+                        <p className={styles.transactions_value}>{element.current_value}</p>
                       </div>
                     </div>
                   </div>
