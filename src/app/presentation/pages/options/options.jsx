@@ -71,7 +71,6 @@ export default function Options() {
   );
 
   useEffect(() => {
-    if (!localStorage.getItem("name")) {
       setIsLoading(true);
       datasource.getAccount().then((response) => {
         localStorage.setItem("name", response.name);
@@ -84,7 +83,6 @@ export default function Options() {
         setCurrentBalance(localStorage.getItem("currentBalance"));
         setIsLoading(false);
       });
-    }
   }, []);
 
   return (
