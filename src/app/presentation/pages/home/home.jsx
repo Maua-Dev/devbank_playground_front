@@ -45,7 +45,7 @@ export default function Home() {
       setInputValid(false);
     } else {
       setIsLoading(true);
-      datasource.getAccount().then((response) => {
+      try {datasource.getAccount().then((response) => {
         try{
           localStorage.setItem("name", response.name);
           localStorage.setItem("agency", response.agency);
@@ -62,7 +62,11 @@ export default function Home() {
           setIsError(true);
           setErrorMessage(e.message);
         }
-      });
+      });} catch (e) {
+        setIsLoading(false);
+        setIsError(true);
+        setErrorMessage(e.message);
+      }
     }
   };
 
