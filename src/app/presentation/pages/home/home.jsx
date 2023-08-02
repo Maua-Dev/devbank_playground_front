@@ -47,6 +47,7 @@ export default function Home() {
       setIsLoading(true);
       if(localStorage.getItem('apiEndpoint').substring(0, 7) !== 'http://'){
         localStorage.setItem('apiEndpoint', 'http://' + localStorage.getItem('apiEndpoint'));
+        setApiEndpoint('apiEndpoint', 'http://' + localStorage.getItem('apiEndpoint'));
       }
       datasource.getAccount().then((response) => {
         try{
