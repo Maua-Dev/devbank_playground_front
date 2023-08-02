@@ -28,11 +28,16 @@ export default function GlobalContextProvider({ children }) {
     twoHundred
   );
 
-  const [name, setName] = useState("");
-  const [agency, setAgency] = useState("");
-  const [account, setAccount] = useState("");
-  const [currentBalance, setCurrentBalance] = useState("");
+  const [name, setName] = useState(localStorage.getItem("name"));
+  const [agency, setAgency] = useState(localStorage.getItem("agency"));
+  const [account, setAccount] = useState(localStorage.getItem("account"));
+  const [currentBalance, setCurrentBalance] = useState(localStorage.getItem("currentBalance"));
   const userAccount = new Account(name, agency, account, currentBalance);
+    
+  const [transactions, setTransactions] = useState([]);
+
+
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <GlobalContext.Provider
@@ -64,6 +69,10 @@ export default function GlobalContextProvider({ children }) {
         currentBalance,
         setCurrentBalance,
         userAccount,
+        isLoading,
+        setIsLoading,
+        transactions,
+        setTransactions,
       }}
     >
       {children}

@@ -6,7 +6,7 @@ export default class Transaction {
     }
 
     static fromJson(json) {
-        return new Transaction(json.type, json.value, json.date);
+        return new Transaction(json.type, json.value, json.timestamp);
     }
 
     static fromJsons(jsons) {
@@ -15,9 +15,9 @@ export default class Transaction {
 
     static toJson() {
         return {
-            type: this.type,
-            value: this.value,
-            date: this.date
+            "type": this.type,
+            "value": this.value,
+            "timestamp": this.date
 
         }
     }

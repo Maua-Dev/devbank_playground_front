@@ -12,10 +12,10 @@ export default class Account {
 
     static toJson() {
         return {
-            name: this.name,
-            agency: this.agency,
-            account: this.account,
-            current_balance: this.currentBalance
+            "name": this.name,
+            "agency": this.agency,
+            "account": this.account,
+            "current_balance": this.currentBalance
         }
     }
 

@@ -1,25 +1,96 @@
-import { useContext } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useContext, useEffect } from "react";
 import Button from "../../components/button/button";
 import Header from "../../components/header/header";
-import styles from "./transactions.module.scss";	
+import styles from "./transactions.module.scss";
 import { GlobalContext } from "../../../context/GlobalContext";
 
+export default function Transactions() {
+  const {
+    userAccount,
+    transactions,
+    datasource,
+    setIsLoading,
+    setTransactions,
+    isLoading,
+  } = useContext(GlobalContext);
 
-export default function Transactions(){
-    const {userAccount} = useContext(GlobalContext);
-    return (
-            <div className={styles.transactions}>
-                <Header name={userAccount.name} account={userAccount.account} agency={userAccount.agency}/>
-                <div className={styles.transactions_title}>Historico de transações</div>
-                <div className={styles.transactions_historic}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint consectetur numquam omnis quasi fugiat quos animi. Tempore accusantium at molestiae maxime nostrum. Numquam eligendi atque delectus obcaecati eveniet voluptatum sint voluptatibus, provident, deleniti dignissimos, ipsa a temporibus voluptatem nihil blanditiis magnam quidem nam rerum vel laboriosam illum inventore error praesentium!</div>
-                <div className={styles.transactions_historic}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint consectetur numquam omnis quasi fugiat quos animi. Tempore accusantium at molestiae maxime nostrum. Numquam eligendi atque delectus obcaecati eveniet voluptatum sint voluptatibus, provident, deleniti dignissimos, ipsa a temporibus voluptatem nihil blanditiis magnam quidem nam rerum vel laboriosam illum inventore error praesentium!</div>
-                <div className={styles.transactions_historic}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint consectetur numquam omnis quasi fugiat quos animi. Tempore accusantium at molestiae maxime nostrum. Numquam eligendi atque delectus obcaecati eveniet voluptatum sint voluptatibus, provident, deleniti dignissimos, ipsa a temporibus voluptatem nihil blanditiis magnam quidem nam rerum vel laboriosam illum inventore error praesentium!</div>
-                <div className={styles.transactions_historic}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint consectetur numquam omnis quasi fugiat quos animi. Tempore accusantium at molestiae maxime nostrum. Numquam eligendi atque delectus obcaecati eveniet voluptatum sint voluptatibus, provident, deleniti dignissimos, ipsa a temporibus voluptatem nihil blanditiis magnam quidem nam rerum vel laboriosam illum inventore error praesentium!</div>
-                <div className={styles.transactions_historic}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint consectetur numquam omnis quasi fugiat quos animi. Tempore accusantium at molestiae maxime nostrum. Numquam eligendi atque delectus obcaecati eveniet voluptatum sint voluptatibus, provident, deleniti dignissimos, ipsa a temporibus voluptatem nihil blanditiis magnam quidem nam rerum vel laboriosam illum inventore error praesentium!</div>
-                <div className={styles.transactions_historic}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint consectetur numquam omnis quasi fugiat quos animi. Tempore accusantium at molestiae maxime nostrum. Numquam eligendi atque delectus obcaecati eveniet voluptatum sint voluptatibus, provident, deleniti dignissimos, ipsa a temporibus voluptatem nihil blanditiis magnam quidem nam rerum vel laboriosam illum inventore error praesentium!</div>
-                <div className={styles.transactions_button}>
-                    <Button title={'Voltar'} to={'/options'}/>
-                </div>
-            </div>
-        )
+
+
+  useEffect(() => {
+    setIsLoading(true);
+          datasource.getAllTransactions().then((response) => {
+            const transactionsList = response.map(
+              element => element
+            );
+            setTransactions(transactionsList);
+            localStorage.setItem('transactionsList', response.transactionsList);
+            setIsLoading(false);
+          });
+      
+  }, [])
+
+  return (
+    <div className={styles.transactions}>
+      {isLoading ? (
+        <div className={styles.transactions_isloading}>
+          <div className={styles.transactions_customloader}></div>
+        </div>
+      ) : (
+        <>
+          <Header
+            name={userAccount.name}
+            account={userAccount.account}
+            agency={userAccount.agency}
+          />
+          <div className={styles.transactions_title} key={''}>
+            Historico de transações
+          </div>
+          {transactions.map((element) => {
+            let date = Date(element.date).toString();
+            date = date.substring(4, date.length - 38);
+            return (
+              <>
+                  {element.type === 'deposit' ? <div key={element.timestamp} className={styles.transactions_historic}>
+                  <div className={styles.transactions_historic__green}>
+                    Deposito
+                  </div>
+                  <div className={styles.transactions_div}> 
+                    <div>
+                      <span className={styles.transactions_span}>VALOR:</span>
+                      <p className={styles.transactions_value}>R$ {element.value}</p>
+                    </div >
+                    <div>
+                      <span className={styles.transactions_span}>DATA:</span>
+                      <p className={styles.transactions_value}>{date}</p>
+                    </div>
+                  </div>
+                </div> : <div key={element.timestamp} className={styles.transactions_historic}>
+                  <div className={styles.transactions_historic__red}>
+                    Saque
+                  </div>
+                  <div className={styles.transactions_div}> 
+                    <div>
+                      <span className={styles.transactions_span}>VALOR:</span>
+                      <p className={styles.transactions_value}>R$ {element.value}</p>
+                    </div >
+                    <div>
+                      <span className={styles.transactions_span}>DATA:</span>
+                      <p className={styles.transactions_value}>{date}</p>
+                    </div>
+                  </div>
+                </div>}
+                
+              </>
+              
+            );
+          })}
+          
+          <div className={styles.transactions_button}>
+            <Button title={"Voltar"} to={"/options"} />
+          </div>
+        </>
+      )}
+    </div>
+  );
 }

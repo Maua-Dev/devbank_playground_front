@@ -100,3 +100,20 @@
 .options_input__icon:hover{
     color: $dark-red;
 }
+
+.options_isloading{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.options_customloader{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    border:8px solid;
+    border-color:$dark-blue $extra-light-blue;
+    animation:s2 1s infinite;
+}
+@keyframes s2 {to{transform: rotate(1turn)}}

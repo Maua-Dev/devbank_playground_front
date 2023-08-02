@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { GlobalContext } from "../../../context/GlobalContext";
 import Card from "../../components/card/card";
 import Header from "../../components/header/header";
@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { FaPencilAlt } from "react-icons/fa";
 
 export default function Options() {
-  const { apiEndpoint, userAccount, datasource, setName, setAgency, setAccount, setCurrentBalance } = useContext(GlobalContext);
+  const { apiEndpoint, userAccount, isLoading } = useContext(GlobalContext);
   const [inputValid, setInputValid] = useState(true)
 
   const handleLinkClick = (event) => {
@@ -16,19 +16,11 @@ export default function Options() {
       setInputValid(false);
     }
   };
-
-  useEffect(() => {
-    datasource.getAccount().then((response) => {
-      setName(response.name);
-      setAgency(response.agency);
-      setAccount(response.account);
-      setCurrentBalance(response.currentBalance);
-    });
-  },)
+  
 
   return (
     <div className={styles.options}>
-      <Header name={userAccount.name} account={userAccount.account} agency={userAccount.agency} />
+      {isLoading ? <div className={styles.options_isloading}><div className={styles.options_customloader}></div></div> :  <><Header name={userAccount.name} account={userAccount.account} agency={userAccount.agency} />
       <div className={styles.options_informations}>
         <p className={styles.options_informations__text}>
           O que você deseja fazer?
@@ -69,7 +61,8 @@ export default function Options() {
             <FaPencilAlt className={styles.options_input__icon} />
           </Link>
         </div>
-      </div>
+      </div></>}
+      
     </div>
   );
 }

@@ -8,13 +8,19 @@ import { GlobalContext } from '../../../context/GlobalContext';
 
 export default function Cards ({action}) {
   
-  const { two, setTwo, five, setFive, ten, setTen, twenty, setTwenty, fifty, setFifty, oneHundred, setOneHundred, twoHundred, setTwoHundred, wallet, userAccount } = useContext(GlobalContext);
+  const { two, setTwo, five, setFive, ten, setTen, twenty, setTwenty, fifty, setFifty, oneHundred, setOneHundred, twoHundred, setTwoHundred, wallet, userAccount, datasource } = useContext(GlobalContext);
 
+  const handleDeposit = () => {
+    datasource.withdraw(wallet).then((response) => {
+      console.log(response);
+    });
+  };
+  
 
   return (
     <div className={styles.cards}>
       <Header name={userAccount.name} account={userAccount.account} agency={userAccount.agency}/>
-      <Informations currentBalance={0} actionAmount={wallet.getTotal()} action={action === 'Depositar' ? 'depositada' : 'sacada'} />
+      <Informations currentBalance={userAccount.currentBalance} actionAmount={wallet.getTotal()} action={action === 'Depositar' ? 'depositada' : 'sacada'} />
       <div className={styles.main}>
         <span className={styles.main_title}>Selecione as cédulas e a quantidade que você deseja.</span>
         <MoneyCard value={2} wallet={two} setWallet={setTwo}/>
@@ -26,8 +32,8 @@ export default function Cards ({action}) {
         <MoneyCard value={200} wallet={twoHundred} setWallet={setTwoHundred}/>
       </div>
       <div className={styles.buttons}>
-        <Button title={'Voltar'} to={'/options'}/>
-        <Button title={action} to={'/options'}/>
+        <Button title={'Voltar'} to={'/options'} />
+        <Button title={action} to={'/options'} onClick={handleDeposit}/>
       </div>
     </div>
     

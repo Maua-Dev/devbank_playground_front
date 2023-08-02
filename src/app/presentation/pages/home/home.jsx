@@ -5,7 +5,7 @@ import { GlobalContext } from "../../../context/GlobalContext";
 import { Link } from "react-router-dom";
 
 export default function Home() {
-  const { apiEndpoint, setApiEndpoint} = useContext(GlobalContext);
+  const { apiEndpoint, setApiEndpoint, datasource, setName, setAgency, setAccount, setCurrentBalance} = useContext(GlobalContext);
   const [inputValid, setInputValid] = useState(true);
 
   function handleChange(event) {
@@ -25,6 +25,17 @@ export default function Home() {
     ) {
       event.preventDefault();
       setInputValid(false);
+    } else {
+      datasource.getAccount().then((response) => {
+        localStorage.setItem('name', response.name);
+        localStorage.setItem('agency', response.agency);
+        localStorage.setItem('account', response.account);
+        localStorage.setItem('currentBalance', response.currentBalance);
+        setName(localStorage.getItem('name'));
+        setAgency(localStorage.getItem('agency'));
+        setAccount(localStorage.getItem('account'));
+        setCurrentBalance(localStorage.getItem('currentBalance'));
+      });
     }
   };
 
