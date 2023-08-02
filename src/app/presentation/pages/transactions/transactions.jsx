@@ -81,12 +81,13 @@ export default function Transactions() {
             account={userAccount.account}
             agency={userAccount.agency}
           />
-          <div className={styles.transactions_title} key={""}>
+          <div className={styles.transactions_title} >
             Historico de transações
           </div>
           {transactions.map((element) => {
-            let date = Date(element.date).toString();
+            let date = new Date(element.date).toString();
             date = date.substring(4, date.length - 38);
+            console.log(date);
             return (
               <>
                 {element.type === "deposit" ? (
