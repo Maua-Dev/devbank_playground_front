@@ -6,7 +6,6 @@ import Cards from "./presentation/pages/cards/cards";
 import Transactions from "./presentation/pages/transactions/transactions";
 import Options from "./presentation/pages/options/options";
 import { GlobalContext } from "./context/GlobalContext";
-import axios from "axios";
 
 function App() {
 
