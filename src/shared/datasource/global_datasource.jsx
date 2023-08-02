@@ -17,12 +17,8 @@ export default class GlobalDatasource {
   }
 
   async deposit(wallet) {
-    try {
-      const response = await axios.post('https://httpbin.org/post');
-      return response.data;
-    } catch (e) {
-      console.log(e);
-    }
+    const response = await axios.post(`${this.url}/deposit`, wallet.toJson());
+    return response.data;
   }
 
   async getAllTransactions() {

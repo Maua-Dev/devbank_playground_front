@@ -7,13 +7,28 @@ import { Link } from "react-router-dom";
 import { BiSolidPencil} from "react-icons/bi";
 
 export default function Options() {
-  const { apiEndpoint, userAccount, isLoading } = useContext(GlobalContext);
+  const { apiEndpoint, userAccount, isLoading,
+    setTwo,
+    setFive,
+    setTen,
+    setTwenty,
+    setFifty,
+    setOneHundred,
+    setTwoHundred, } = useContext(GlobalContext);
   const [inputValid, setInputValid] = useState(true)
 
   const handleLinkClick = (event) => {
     if (!localStorage.getItem("apiEndpoint")) {
       event.preventDefault();
       setInputValid(false);
+    } else {
+      setTwo(0);
+      setFive(0);
+      setTen(0);
+      setTwenty(0);
+      setFifty(0);
+      setOneHundred(0);
+      setTwoHundred(0);
     }
   };
   
