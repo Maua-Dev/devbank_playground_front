@@ -5,7 +5,6 @@ import { GlobalContext } from "../../../context/GlobalContext";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import ErrorPopup from "../../components/error-popup/error_popup";
-import { set } from "immutable";
 
 export default function Home() {
   const {

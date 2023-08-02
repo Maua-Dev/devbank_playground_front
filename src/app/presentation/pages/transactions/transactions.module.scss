@@ -11,6 +11,7 @@
     flex-direction: column;
     align-items: center;
     pointer-events: none;
+    height: 100vh;
 }
 
 .transactions_title{
@@ -21,6 +22,15 @@
     padding: 16px;
     border-radius: 10px;
     width: 90%;
+}
+
+.transactions_popup{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    z-index: 1;
+    margin-top: 300px;
 }
 
 .transactions_button{
