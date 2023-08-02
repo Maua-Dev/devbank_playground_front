@@ -7,6 +7,14 @@
     height: 100vh;
 }
 
+.home_error{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    pointer-events: none;
+}
+
 .home_div{
     background-color: $extra-light-blue;
     height: 70%;
@@ -74,3 +82,20 @@
     background-color: $dark-red;
     cursor: pointer;
 }
+
+.home_isloading{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home_customloader{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    border:8px solid;
+    border-color:$dark-blue $extra-light-blue;
+    animation:s2 1s infinite;
+}
+@keyframes s2 {to{transform: rotate(1turn)}}

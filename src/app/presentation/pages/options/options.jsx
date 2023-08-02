@@ -47,10 +47,11 @@ export default function Options() {
     setErrorMessage(error.message);
     return Promise.reject(error);
   });
+
   
 
   return (
-    <div className={styles.options}>
+    <div className={isError ? styles.options_error : styles.options}>
       {isError ? <ErrorPopup message={errorMessage} /> : ""}
       {isLoading ? <div className={styles.options_isloading}><div className={styles.options_customloader}></div></div> :  <><Header name={userAccount.name} account={userAccount.account} agency={userAccount.agency} />
       <div className={styles.options_informations}>

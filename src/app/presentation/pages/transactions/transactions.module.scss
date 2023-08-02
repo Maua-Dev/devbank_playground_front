@@ -6,6 +6,13 @@
     align-items: center;
 }
 
+.transactions_error{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: none;
+}
+
 .transactions_title{
     font-family: $lexend-font;
     background-color: $light-blue;

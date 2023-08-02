@@ -8,6 +8,15 @@
     gap: 16px;
 }
 
+.options_error{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    gap: 16px;
+}
+
 .options_informations{
         background-color: $extra-light-blue;
         display: flex;
@@ -103,6 +112,10 @@
     color: $dark-red;
 }
 
+.options_input__link{
+    display: flex;
+}
+
 .options_isloading{
     height: 100vh;
     display: flex;
@@ -110,9 +123,7 @@
     justify-content: center;
 }
 
-.options_input__link{
-    display: flex;
-}
+
 
 .options_customloader{
     width:50px;

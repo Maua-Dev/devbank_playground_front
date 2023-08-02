@@ -45,7 +45,7 @@ export default function Transactions() {
   }, [])
 
   return (
-    <div className={styles.transactions}>
+    <div className={isError ? styles.transactions_error : styles.transactions}>
       {isError ? <ErrorPopup message={errorMessage} /> : ""}
       {isLoading ? (
         <div className={styles.transactions_isloading}>
