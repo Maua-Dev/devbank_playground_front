@@ -1,6 +1,21 @@
 import axios from "axios";
 import Transaction from "../domain/entities/Transaction";
 import Account from "../domain/entities/Account";
+
+axios.interceptors.request.use(function (config) {
+  return config;
+}, function (error) {
+  window.alert(error);
+  return Promise.reject(error);
+});
+
+axios.interceptors.response.use(function (response) {
+  return response;
+}, function (error) {
+  window.alert(error);
+  return Promise.reject(error);
+});
+
 export default class GlobalDatasource {
   constructor(url) {
     this.url = url;

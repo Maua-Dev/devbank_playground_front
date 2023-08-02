@@ -18,11 +18,12 @@
 
 .header_right{
     margin-right: 32px;
-    width: 296px;
+    min-width: 296px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
+    gap: 16px;
 }
 
 .header_account{
@@ -34,6 +35,8 @@
     padding: 8px 16px;
     border-radius: 10px;
     min-width: 150px;
+    max-width: 80%;
+    text-overflow: ellipsis;
 }
 
 .header_account__text{
