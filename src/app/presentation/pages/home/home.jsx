@@ -45,9 +45,9 @@ export default function Home() {
       setInputValid(false);
     } else {
       setIsLoading(true);
-      if(localStorage.getItem('apiEndpoint').substring(0, 7) !== 'http://'){
-        localStorage.setItem('apiEndpoint', 'http://' + localStorage.getItem('apiEndpoint'));
-        setApiEndpoint('apiEndpoint', 'http://' + localStorage.getItem('apiEndpoint'));
+      if(localStorage.getItem('apiEndpoint').substring(0, 7) !== 'https:/'){
+        console.log(localStorage.getItem('apiEndpoint').substring(0, 7))
+        localStorage.setItem('apiEndpoint', 'https://' + localStorage.getItem('apiEndpoint'));
       }
       datasource.getAccount().then((response) => {
         try{
