@@ -110,7 +110,7 @@ export default function Transactions() {
                       </div>
                       <div>
                         <span className={styles.transactions_span}>SALDO:</span>
-                        <p className={styles.transactions_value}>{element.currentBalance}</p>
+                        <p className={element.currentBalance < 0 ? styles.transactions_value__red : styles.transactions_value }>R$ {element.currentBalance}</p>
                       </div>
                     </div>
                   </div>
@@ -135,7 +135,7 @@ export default function Transactions() {
                       </div>
                       <div>
                         <span className={styles.transactions_span}>SALDO:</span>
-                        <p className={styles.transactions_value}>{element.current_value}</p>
+                        <p className={element.currentBalance < 0 ? styles.transactions_value__red : styles.transactions_value }>R$ {element.currentBalance}</p>
                       </div>
                     </div>
                   </div>

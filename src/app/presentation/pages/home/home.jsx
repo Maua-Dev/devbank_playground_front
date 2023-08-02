@@ -45,10 +45,11 @@ export default function Home() {
       setInputValid(false);
     } else {
       setIsLoading(true);
-      if(localStorage.getItem('apiEndpoint').substring(0, 7) !== 'https:/'){
-        console.log(localStorage.getItem('apiEndpoint').substring(0, 7))
+      console.log(localStorage.getItem('apiEndpoint').substring(0, 8))
+      if(localStorage.getItem('apiEndpoint').substring(0, 8) !== 'https://'){
         localStorage.setItem('apiEndpoint', 'https://' + localStorage.getItem('apiEndpoint'));
       }
+      console.log(localStorage.getItem('apiEndpoint'));
       datasource.getAccount().then((response) => {
         try{
           localStorage.setItem("name", response.name);

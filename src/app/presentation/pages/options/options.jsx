@@ -109,7 +109,7 @@ export default function Options() {
             <p className={styles.options_informations__text}>
               O que você deseja fazer?
             </p>
-            <div className={styles.options_informations__balance}>
+            <div className={userAccount.currentBalance < 0 ? styles.options_informations__red :styles.options_informations__balance}>
               <p>Saldo atual: R$ {userAccount.currentBalance}</p>
             </div>
           </div>
