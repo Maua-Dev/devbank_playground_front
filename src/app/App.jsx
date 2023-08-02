@@ -11,9 +11,6 @@ function App() {
 
   const { apiEndpoint } = useContext(GlobalContext);
 
- 
-
-
   return (
     <div className="App">
       <BrowserRouter>

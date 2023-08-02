@@ -4,6 +4,8 @@ import Button from "../../components/button/button";
 import Header from "../../components/header/header";
 import styles from "./transactions.module.scss";
 import { GlobalContext } from "../../../context/GlobalContext";
+import axios from "axios";
+import ErrorPopup from "../../components/error-popup/error_popup";
 
 export default function Transactions() {
   const {
@@ -13,8 +15,20 @@ export default function Transactions() {
     setIsLoading,
     setTransactions,
     isLoading,
+    setIsError,
+    setErrorMessage,
+    isError,
+    errorMessage
   } = useContext(GlobalContext);
 
+  axios.interceptors.response.use(function (response) {
+    return response;
+  }, function (error) {
+    setIsLoading(false);
+    setIsError(true);
+    setErrorMessage(error.message);
+    return Promise.reject(error);
+  });
 
 
   useEffect(() => {
@@ -32,6 +46,7 @@ export default function Transactions() {
 
   return (
     <div className={styles.transactions}>
+      {isError ? <ErrorPopup message={errorMessage} /> : ""}
       {isLoading ? (
         <div className={styles.transactions_isloading}>
           <div className={styles.transactions_customloader}></div>

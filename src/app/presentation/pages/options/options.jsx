@@ -5,16 +5,23 @@ import Header from "../../components/header/header";
 import styles from "./options.module.scss";
 import { Link } from "react-router-dom";
 import { BiSolidPencil} from "react-icons/bi";
+import axios from "axios";
+import ErrorPopup from "../../components/error-popup/error_popup";
 
 export default function Options() {
-  const { apiEndpoint, userAccount, isLoading,
+  const { apiEndpoint, userAccount, isLoading, setIsLoading,
     setTwo,
     setFive,
     setTen,
     setTwenty,
     setFifty,
     setOneHundred,
-    setTwoHundred, } = useContext(GlobalContext);
+    setTwoHundred, 
+    isError,
+    setIsError,
+    errorMessage,
+    setErrorMessage,
+  } = useContext(GlobalContext);
   const [inputValid, setInputValid] = useState(true)
 
   const handleLinkClick = (event) => {
@@ -31,10 +38,20 @@ export default function Options() {
       setTwoHundred(0);
     }
   };
+
+  axios.interceptors.response.use(function (response) {
+    return response;
+  }, function (error) {
+    setIsLoading(false);
+    setIsError(true);
+    setErrorMessage(error.message);
+    return Promise.reject(error);
+  });
   
 
   return (
     <div className={styles.options}>
+      {isError ? <ErrorPopup message={errorMessage} /> : ""}
       {isLoading ? <div className={styles.options_isloading}><div className={styles.options_customloader}></div></div> :  <><Header name={userAccount.name} account={userAccount.account} agency={userAccount.agency} />
       <div className={styles.options_informations}>
         <p className={styles.options_informations__text}>

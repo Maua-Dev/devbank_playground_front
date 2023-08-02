@@ -38,6 +38,8 @@ export default function GlobalContextProvider({ children }) {
 
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   return (
     <GlobalContext.Provider
@@ -73,6 +75,10 @@ export default function GlobalContextProvider({ children }) {
         setIsLoading,
         transactions,
         setTransactions,
+        isError,
+        setIsError,
+        errorMessage,
+        setErrorMessage,
       }}
     >
       {children}
