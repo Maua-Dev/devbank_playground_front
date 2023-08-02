@@ -44,9 +44,15 @@ export default function Transactions() {
   useEffect(() => {
     setIsLoading(true);
     datasource.getAllTransactions().then((response) => {
-      const transactionsList = response.map((element) => element);
+      try{
+        const transactionsList = response.map((element) => element);
       setTransactions(transactionsList);
       localStorage.setItem("transactionsList", response.transactionsList);
+      } catch (e){
+        setIsLoading(false);
+        setIsError(true);
+        setErrorMessage(e.message);
+      }
       setIsLoading(false);
     });
   }, []);

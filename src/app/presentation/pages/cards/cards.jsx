@@ -57,10 +57,16 @@ export default function Cards({ action }) {
   const handleWithdraw = () => {
     setIsLoading(true);
     datasource.withdraw(wallet).then((response) => {
-      localStorage.setItem("currentBalance", response.current_balance);
-      setCurrentBalance(response.current_balance);
+      try{
+        localStorage.setItem("currentBalance", response.current_balance);
+        setCurrentBalance(response.current_balance);
+      } catch (e) {
+        setIsLoading(false);
+        setIsError(true);
+        setErrorMessage(e.message);
+      }
       setIsLoading(false);
-    });
+    })
   };
 
   axios.interceptors.response.use(

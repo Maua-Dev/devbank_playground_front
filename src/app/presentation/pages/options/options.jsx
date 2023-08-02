@@ -73,15 +73,21 @@ export default function Options() {
   useEffect(() => {
       setIsLoading(true);
       datasource.getAccount().then((response) => {
-        localStorage.setItem("name", response.name);
-        localStorage.setItem("agency", response.agency);
-        localStorage.setItem("account", response.account);
-        localStorage.setItem("currentBalance", response.currentBalance);
-        setName(localStorage.getItem("name"));
-        setAgency(localStorage.getItem("agency"));
-        setAccount(localStorage.getItem("account"));
-        setCurrentBalance(localStorage.getItem("currentBalance"));
-        setIsLoading(false);
+        try{
+          localStorage.setItem("name", response.name);
+          localStorage.setItem("agency", response.agency);
+          localStorage.setItem("account", response.account);
+          localStorage.setItem("currentBalance", response.currentBalance);
+          setName(localStorage.getItem("name"));
+          setAgency(localStorage.getItem("agency"));
+          setAccount(localStorage.getItem("account"));
+          setCurrentBalance(localStorage.getItem("currentBalance"));
+          setIsLoading(false);
+        } catch (e) {
+          setIsLoading(false);
+          setIsError(true);
+          setErrorMessage(e.message);
+        }
       });
   }, []);
 

@@ -46,16 +46,22 @@ export default function Home() {
     } else {
       setIsLoading(true);
       datasource.getAccount().then((response) => {
-        navigate("/options");
-        localStorage.setItem("name", response.name);
-        localStorage.setItem("agency", response.agency);
-        localStorage.setItem("account", response.account);
-        localStorage.setItem("currentBalance", response.currentBalance);
-        setName(localStorage.getItem("name"));
-        setAgency(localStorage.getItem("agency"));
-        setAccount(localStorage.getItem("account"));
-        setCurrentBalance(localStorage.getItem("currentBalance"));
-        setIsLoading(false);
+        try{
+          localStorage.setItem("name", response.name);
+          localStorage.setItem("agency", response.agency);
+          localStorage.setItem("account", response.account);
+          localStorage.setItem("currentBalance", response.currentBalance);
+          setName(localStorage.getItem("name"));
+          setAgency(localStorage.getItem("agency"));
+          setAccount(localStorage.getItem("account"));
+          setCurrentBalance(localStorage.getItem("currentBalance"));
+          setIsLoading(false);
+          navigate("/options");
+        } catch (e) {
+          setIsLoading(false);
+          setIsError(true);
+          setErrorMessage(e.message);
+        }
       });
     }
   };
