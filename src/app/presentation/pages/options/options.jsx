@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../../context/GlobalContext";
 import Card from "../../components/card/card";
