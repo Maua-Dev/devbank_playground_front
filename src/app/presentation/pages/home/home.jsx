@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import logo from "../../assets/logo_devbank.png";
 import styles from "./home.module.scss";
 import { GlobalContext } from "../../../context/GlobalContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import ErrorPopup from "../../components/error-popup/error_popup";
 
@@ -34,6 +34,7 @@ export default function Home() {
     setInputValid(true);
   }
 
+  const navigate = useNavigate();
 
   const handleLinkClick = (event) => {
     if (
@@ -55,6 +56,7 @@ export default function Home() {
           setAccount(localStorage.getItem("account"));
           setCurrentBalance(localStorage.getItem("currentBalance"));
           setIsLoading(false);
+          navigate("/options");
         } catch (e) {
           setIsLoading(false);
           setIsError(true);
