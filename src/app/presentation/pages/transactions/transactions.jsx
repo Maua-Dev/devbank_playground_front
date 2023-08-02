@@ -50,6 +50,7 @@ export default function Transactions() {
           <ErrorPopup
             message={errorMessage}
             className={styles.transactions_popup}
+            to={''}
           />
         </div>
       ) : (

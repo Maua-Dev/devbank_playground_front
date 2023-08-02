@@ -74,7 +74,7 @@ export default function Home() {
 
   return (
     <div className={isError ? styles.home_error : styles.home}>
-      {isError ? <ErrorPopup message={errorMessage} to={"/"} /> : ""}
+      {isError ? <ErrorPopup message={errorMessage} to={""} /> : ""}
       {isLoading ? (
         <div className={styles.home_isloading}>
           <div className={styles.home_customloader}></div>
