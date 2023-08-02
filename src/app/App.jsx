@@ -6,6 +6,7 @@ import Cards from "./presentation/pages/cards/cards";
 import Transactions from "./presentation/pages/transactions/transactions";
 import Options from "./presentation/pages/options/options";
 import { GlobalContext } from "./context/GlobalContext";
+import Docs from "./presentation/pages/docs/docs";
 
 function App() {
 
@@ -51,6 +52,7 @@ function App() {
               ) : (
                 <Navigate to="/" />
               )} />
+          <Route path='/docs' element={<Docs />} />
         </Routes>
       </BrowserRouter>
     </div>

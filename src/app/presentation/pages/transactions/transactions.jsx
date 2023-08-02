@@ -6,6 +6,7 @@ import styles from "./transactions.module.scss";
 import { GlobalContext } from "../../../context/GlobalContext";
 import axios from "axios";
 import ErrorPopup from "../../components/error-popup/error_popup";
+import { useNavigate } from "react-router-dom";
 
 export default function Transactions() {
   const {
@@ -20,6 +21,13 @@ export default function Transactions() {
     isError,
     errorMessage,
   } = useContext(GlobalContext);
+
+  const navigate = useNavigate();
+
+    const handleOnClick = () => {
+        navigate(-1);
+    }
+
 
   axios.interceptors.response.use(
     function (response) {
@@ -123,7 +131,7 @@ export default function Transactions() {
           })}
 
           <div className={styles.transactions_button}>
-            <Button title={"Voltar"} to={"/options"} />
+            <Button title={"Voltar"} onClick={handleOnClick} />
           </div>
         </>
       )}

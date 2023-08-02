@@ -7,6 +7,7 @@ import MoneyCard from "../../components/money-card/money_card";
 import { GlobalContext } from "../../../context/GlobalContext";
 import ErrorPopup from "../../components/error-popup/error_popup";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Cards({ action }) {
   const {
@@ -36,6 +37,12 @@ export default function Cards({ action }) {
     setErrorMessage
 
   } = useContext(GlobalContext);
+
+  const navigate = useNavigate();
+
+    const handleOnClick = () => {
+        navigate(-1);
+    }
 
   const handleDeposit = () => {
     setIsLoading(true);
@@ -106,7 +113,7 @@ export default function Cards({ action }) {
       <MoneyCard value={200} wallet={twoHundred} setWallet={setTwoHundred} />
     </div>
     <div className={styles.buttons}>
-      <Button title={"Voltar"} to={"/options"} />
+      <Button title={"Voltar"} onClick={handleOnClick} />
       <Button
         title={action}
         onClick={action === "Depositar" ? handleDeposit : handleWithdraw}
