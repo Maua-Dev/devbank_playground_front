@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import logo from "../../assets/logo_devbank.png";
 import styles from "./home.module.scss";
 import { GlobalContext } from "../../../context/GlobalContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import ErrorPopup from "../../components/error-popup/error_popup";
 
@@ -34,7 +34,6 @@ export default function Home() {
     setInputValid(true);
   }
 
-  const navigate = useNavigate();
 
   const handleLinkClick = (event) => {
     if (
