@@ -4,7 +4,7 @@ import Card from "../../components/card/card";
 import Header from "../../components/header/header";
 import styles from "./options.module.scss";
 import { Link } from "react-router-dom";
-import { FaPencilAlt } from "react-icons/fa";
+import { BiSolidPencil} from "react-icons/bi";
 
 export default function Options() {
   const { apiEndpoint, userAccount, isLoading } = useContext(GlobalContext);
@@ -58,7 +58,7 @@ export default function Options() {
         <div className={styles.options_input}>
           <p className={styles.options_input__text}>{apiEndpoint}</p>
           <Link to="/" className={styles.options_input__link}>
-            <FaPencilAlt className={styles.options_input__icon} />
+            <BiSolidPencil className={styles.options_input__icon} />
           </Link>
         </div>
       </div></>}

@@ -83,7 +83,7 @@
 }
 
 .options_input__icon{
-    font-size: 24px;
+    font-size: 40px;
     color: $dark-blue;
     padding-left: 8px;
 }
@@ -106,6 +106,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.options_input__link{
+    display: flex;
 }
 
 .options_customloader{
