@@ -56,7 +56,6 @@ export default function Home() {
           setAccount(localStorage.getItem("account"));
           setCurrentBalance(localStorage.getItem("currentBalance"));
           setIsLoading(false);
-          navigate("/options");
         } catch (e) {
           setIsLoading(false);
           setIsError(true);
