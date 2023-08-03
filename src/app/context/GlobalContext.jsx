@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import Wallet from "../../shared/domain/entities/Wallet";
 import GlobalDatasource from "../../shared/datasource/global_datasource";
 import Account from "../../shared/domain/entities/Account";
@@ -9,7 +9,12 @@ export default function GlobalContextProvider({ children }) {
   const [apiEndpoint, setApiEndpoint] = useState(
     localStorage.getItem("apiEndpoint")
   );
+
+  
+
+  console.log("apiEndpoint: " + apiEndpoint)
   const datasource = new GlobalDatasource(apiEndpoint);
+  console.log(datasource.url);
 
   const [two, setTwo] = useState(0);
   const [five, setFive] = useState(0);

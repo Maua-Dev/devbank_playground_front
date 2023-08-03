@@ -8,6 +8,9 @@ export default class GlobalDatasource {
   }
 
   async getAccount() {
+    if(this.url.substring(0, 8) !== 'https://'){
+      this.url = `https://${this.url}`;
+    }
     const response = await axios.get(this.url);
     return Account.fromJson(response.data);
   }
