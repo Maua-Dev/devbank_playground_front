@@ -89,6 +89,11 @@ export default function Home() {
       ) : (
         <>
           <div className={styles.home_div}>
+          <Link to={'/docs'} className={styles.home_link}>
+            <div className={styles.home_interrogation}>
+              <p className={styles.home_interrogation__symbol}>?</p>
+            </div>
+          </Link>
             <img src={logo} alt="Logo DevBank" className={styles.home_logo} />
             <div className={styles.home_form}>
               <input

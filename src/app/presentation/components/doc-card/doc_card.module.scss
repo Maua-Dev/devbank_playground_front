@@ -1,0 +1,141 @@
+@import "../../../../shared/styles/variables.scss";
+
+.card {
+  font-family: $lexend-font;
+  width: 80%;
+  margin: 16px;
+}
+
+.card_div {
+  background-color: $light-blue;
+  color: $dark-blue;
+  font-size: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding-left: 16px;
+  border-top: 10px;
+  border-radius: 10px;
+}
+
+.card_div__show {
+  background-color: $light-blue;
+  color: $dark-blue;
+  font-size: 24px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding-left: 16px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  
+}
+
+.card_content {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0, 1, 0, 1);
+  
+}
+
+.card_description {
+  margin: 0;
+}
+
+.card_content__show {
+  height: auto;
+  max-height: 9999;
+  transition: all 0.5s cubic-bezier(0, 1, 0, 1);
+  background-color: $extra-light-blue;
+  padding: 16px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card_contentdiv{
+  background-color: $white;
+  border-radius: 10px;
+  color: $dark-blue;
+  font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 16px 16px;
+  line-break: anywhere;
+}
+
+.card_contentdiv__json{
+    background-color: $white;
+    border-radius: 10px;
+    color: $dark-blue;
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 16px 16px;
+    position: relative;
+  transition: ease-in-out 0.2s;
+
+  }
+
+  .card_contentdiv__jsonopacity{
+    background-color: $white;
+    border-radius: 10px;
+    color: $dark-blue;
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 16px 16px;
+    position: relative;
+    transition: ease-in-out 0.2s;
+    opacity: 1;
+  }
+
+.card_json {
+  font-family: $lexend-font;
+  color: $dark-blue;
+  border-radius: 10px;
+  font-size: 16px;
+  white-space: pre-wrap;
+}
+
+.card_title{
+    font-size: 16px;
+}
+
+.card_div:hover {
+  background-color: $light-red;
+  color: $dark-red;
+  cursor: pointer;
+  transition: ease-in-out 0.2s;
+}
+
+.card_icon{
+    display: none;
+  transition: ease-in-out 0.2s;
+
+}
+
+.card_div__show:hover {
+  background-color: $light-red;
+  color: $dark-red;
+  cursor: pointer;
+  transition: ease-in-out 0.2s;
+}
+
+.card_contentdiv__json:hover {
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.card_contentdiv__json:hover .card_icon{
+    display: block;
+    top: 16px;
+    right: 16px;
+    position: absolute;
+}
+
