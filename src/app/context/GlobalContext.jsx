@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useState } from "react";
 import Wallet from "../../shared/domain/entities/Wallet";
 import GlobalDatasource from "../../shared/datasource/global_datasource";
 import Account from "../../shared/domain/entities/Account";
