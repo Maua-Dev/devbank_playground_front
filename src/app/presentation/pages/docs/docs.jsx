@@ -16,7 +16,8 @@ export default function Docs() {
         Documentação
       </div>
       <DocCard
-        title={"/get"}
+        type={"get"}
+        title={"/"}
         description={"descrição"}
         response={`{
         "name": "Vitor Soller",
@@ -26,6 +27,8 @@ export default function Docs() {
 }`}
       />
       <DocCard
+        type={"post"}
+
         title={"/deposit"}
         description={"descrição"}
         request={`{
@@ -43,6 +46,8 @@ export default function Docs() {
 }`}
       />
       <DocCard
+        type={"post"}
+
         title={"/withdraw"}
         description={"descrição"}
         request={`{
@@ -60,6 +65,7 @@ export default function Docs() {
 }`}
       />
       <DocCard
+        type={"get"}
         title={"/history"}
         description={"descrição"}
         response={`{

@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "./doc_card.module.scss";
 import { BiSolidCopy } from "react-icons/bi";
 
-export default function DocCard({ title, description, request, response }) {
+export default function DocCard({ title, description, request, response, type }) {
   const [selected, setSelected] = useState(true);
   const [requestStyle, setRequestStyle] = useState(
     styles.card_contentdiv__json
@@ -37,7 +37,7 @@ export default function DocCard({ title, description, request, response }) {
         className={selected ? styles.card_div : styles.card_div__show}
         onClick={handleOnClick}
       >
-        <h1 className={styles.card_div__title}>{title}</h1>
+        <h1 className={styles.card_div__title}>{type} {title}</h1>
       </div>
       <div
         className={selected ? styles.card_content : styles.card_content__show}
