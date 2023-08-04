@@ -47,6 +47,12 @@ export default function Home() {
       setIsLoading(true);
       
       datasource.getAccount().then((response) => {
+        if(response.name === undefined || response.agency === undefined || response.account === undefined || response.currentBalance === undefined){
+          setIsLoading(false);
+          setIsError(true);
+          setErrorMessage("Invalid parameters");
+          return;
+        }
         try{
           localStorage.setItem("name", response.name);
           localStorage.setItem("agency", response.agency);

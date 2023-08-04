@@ -44,10 +44,16 @@ export default function Transactions() {
   useEffect(() => {
     setIsLoading(true);
     datasource.getAllTransactions().then((response) => {
+      if(response.transactionsList === undefined){
+        setIsLoading(false);
+        setIsError(true);
+        setErrorMessage("Invalid parameters");
+        return;
+      }
       try{
         const transactionsList = response.map((element) => element);
-      setTransactions(transactionsList);
-      localStorage.setItem("transactionsList", response.transactionsList);
+        setTransactions(transactionsList);
+        localStorage.setItem("transactionsList",);
       } catch (e){
         setIsLoading(false);
         setIsError(true);
