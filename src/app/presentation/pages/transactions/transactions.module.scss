@@ -6,6 +6,14 @@
     align-items: center;
 }
 
+.transactions_error{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: none;
+    height: 100vh;
+}
+
 .transactions_title{
     font-family: $lexend-font;
     background-color: $light-blue;
@@ -14,6 +22,15 @@
     padding: 16px;
     border-radius: 10px;
     width: 90%;
+}
+
+.transactions_popup{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    z-index: 1;
+    margin-top: 300px;
 }
 
 .transactions_button{
@@ -25,9 +42,68 @@
 .transactions_historic{
     font-family: $lexend-font;
     background-color: $light-blue;
-    color: $dark-blue;
+    color: $white;
     margin: 16px;
     padding: 16px;
     border-radius: 10px;
     width: 90%;
 }
+
+.transactions_historic__green{
+    margin: 0 8px;
+    padding: 16px;
+    border-radius: 10px;
+    font-size: 24px;
+    text-align: center;
+    background-color: green;
+}
+
+.transactions_historic__red{
+    margin: 0 8px;
+    padding: 16px;
+    border-radius: 10px;
+    font-size: 24px;
+    text-align: center;
+    background-color: red;
+}
+
+.transactions_isloading{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.transactions_div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+    color: $dark-blue;
+    text-align: center;
+    padding-top: 32px;
+}
+
+.transactions_span{
+    font-size: 32px;
+}
+
+.transactions_value{
+    font-size: 24px;
+}
+
+.transactions_value__red{
+    font-size: 24px;
+    color: $dark-red;
+}
+
+.transactions_customloader{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    border:8px solid;
+    border-color:$dark-blue $extra-light-blue;
+    animation:s2 1s infinite;
+}
+@keyframes s2 {to{transform: rotate(1turn)}}

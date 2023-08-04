@@ -1,0 +1,27 @@
+@import '../../../../shared/styles/variables.scss';
+
+.docs{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 16px;
+    margin: 0 16px;
+}
+
+.docs_button{
+    padding: 16px;
+    position: relative;
+    bottom: 10px;
+}
+
+.docs_title{
+    font-family: $lexend-font;
+    background-color: $light-blue;
+    color: $white;
+    margin: 16px;
+    padding: 16px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 32px;
+    width: 100%;
+}

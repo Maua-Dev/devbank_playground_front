@@ -1,42 +1,41 @@
 import axios from "axios";
-import Acconut from "../domain/entities/Account";
 import Transaction from "../domain/entities/Transaction";
+import Account from "../domain/entities/Account";
 
-axios.interceptors.request.use(function (config) {
-    return config;
-  }, function (error) {
-    return Promise.reject(error);
-  });
+export default class GlobalDatasource {
+  constructor(url) {
+    this.url = url;
+  }
 
-axios.interceptors.response.use(function (response) {
-    return response;
-  }, function (error) {
-    return Promise.reject(error);
-  });
-
-class GlobalDatasource {
-
-    constructor(url){ 
-        this.url = url;
+  async getAccount() {
+    if(this.url.substring(0, 8) !== 'https://'){
+      this.url = `https://${this.url}`;
     }
+    const response = await axios.get(this.url);
+    return Account.fromJson(response.data);
+  }
 
-    async getAccount() {
-        await axios.get(this.url).then((response) => {
-            return Acconut.fromJson(response.data)
-        })
+  async withdraw(wallet) {
+    if(this.url.substring(0, 8) !== 'https://'){
+      this.url = `https://${this.url}`;
     }
+    const response = await axios.post(`${this.url}/withdraw`, wallet.toJson());
+    return response.data;
+  }
 
-    async withdraw(wallet) {
-        await axios.post(`${this.url}/withdraw`, wallet.toJson()).then((response) => {
-            return response.data})
+  async deposit(wallet) {
+    if(this.url.substring(0, 8) !== 'https://'){
+      this.url = `https://${this.url}`;
     }
+    const response = await axios.post(`${this.url}/deposit`, wallet.toJson());
+    return response.data;
+  }
 
-    async deposit( wallet) {
-        await axios.post(`${this.url}/deposit`, wallet.toJson()).then((response) => {
-            return response.data})
+  async getAllTransactions() {
+    if(this.url.substring(0, 8) !== 'https://'){
+      this.url = `https://${this.url}`;
     }
-
-    async getAllTransactions() {
-        await axios.post(`${this.url}/history`.then((response) => {
-            return Transaction.fromJsons(response.data)}))}
+    const response = await axios.get(`${this.url}/history`)
+    return Transaction.fromJsons(response.data.all_transactions);
+  }
 }

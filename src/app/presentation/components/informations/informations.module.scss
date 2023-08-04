@@ -21,6 +21,20 @@
     padding-left: 8px;
     color: $white;
     font-size: 24px;
+    overflow: hidden;
+}
+
+.informations_balance__red{
+    border-radius: 10px;
+    background-color: $light-blue;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 8px;
+    color: $dark-red;
+    font-size: 24px;
+    overflow: hidden;
 }
 
 .informations_deposited{
