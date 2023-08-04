@@ -3,7 +3,7 @@ import styles from "./doc_card.module.scss";
 import { BiSolidCopy } from "react-icons/bi";
 
 export default function DocCard({ title, description, request, response, type }) {
-  const [selected, setSelected] = useState(true);
+  const [selected, setSelected] = useState(title === '/' ? false : true);
   const [requestStyle, setRequestStyle] = useState(
     styles.card_contentdiv__json
   );
