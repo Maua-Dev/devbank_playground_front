@@ -13,15 +13,15 @@ export default class Wallet {
         return new Wallet(json.two, json.five, json.ten, json.twenty, json.fifty, json.oneHundred, json.twoHundred);
     }
 
-    static toJson() {
+    toJson() {
         return {
-            two: this.two,
-            five: this.five,
-            ten: this.ten,
-            twenty: this.twenty,
-            fifty: this.fifty,
-            oneHundred: this.oneHundred,
-            twoHundred: this.twoHundred
+            "2": this.two,
+            "5": this.five,
+            "10": this.ten,
+            "20": this.twenty,
+            "50": this.fifty,
+            "100": this.oneHundred,
+            "200": this.twoHundred
         }
     }
 

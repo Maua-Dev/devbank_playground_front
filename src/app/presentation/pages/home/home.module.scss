@@ -7,6 +7,14 @@
     height: 100vh;
 }
 
+.home_error{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    pointer-events: none;
+}
+
 .home_div{
     background-color: $extra-light-blue;
     height: 70%;
@@ -15,6 +23,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+    position: relative;
 }
 
 .home_logo{
@@ -39,13 +48,12 @@
     height: 80px;
     border-radius: 10px;
     text-align: center;  
-    font-size: 40px;
+    font-size: 32px;
 }
 
 .home_label{
     color: $dark-red;
     font-family: $lexend-font;
-    padding-bottom: 16px;
 }
 
 .home_button{
@@ -58,6 +66,7 @@
     border-radius: 10px;
     height: 60px;
     border: none;
+    text-decoration: none;
 }
 
 .home_button__title {
@@ -73,4 +82,50 @@
 .home_button:hover {
     background-color: $dark-red;
     cursor: pointer;
+}
+
+.home_isloading{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home_customloader{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    border:8px solid;
+    border-color:$dark-blue $extra-light-blue;
+    animation:s2 1s infinite;
+}
+@keyframes s2 {to{transform: rotate(1turn)}}
+
+.home_interrogation{
+    background-color: $white;
+    width: 88px;
+    height: 88px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: ease-in-out 0.2s;
+    position: absolute;
+    top: 32px;
+    right: 32px;
+}
+
+.home_interrogation__symbol{
+    font-size: 80px;
+    font-family: $cabin-font;
+    color: $dark-blue;
+}
+
+.home_link{
+    text-decoration: none;
+}
+
+.home_interrogation:hover{
+    background-color: $light-red;
 }

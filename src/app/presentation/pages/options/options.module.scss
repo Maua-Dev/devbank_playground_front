@@ -8,6 +8,15 @@
     gap: 16px;
 }
 
+.options_error{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    gap: 16px;
+}
+
 .options_informations{
         background-color: $extra-light-blue;
         display: flex;
@@ -39,6 +48,20 @@
     padding-left: 8px;
     color: $white;
     font-size: 24px;
+    overflow: hidden;
+}
+
+.options_informations__red{
+    border-radius: 10px;
+    background-color: $light-blue;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 8px;
+    color: $dark-red;
+    font-size: 24px;
+    overflow: hidden;
 }
 
 .options_cards{
@@ -50,23 +73,29 @@
 
 .options_input{
     width: 100%;
-    display: flex;
     font-family: $cabin-font;
     background-color: $light-blue;
     border: none;
     height: 72px;
     border-radius: 10px;
     text-align: center;  
-    font-size: 40px;
+    font-size: 32px;
     margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    overflow: hidden;
 }
 
-.options_form{
+.options_div{
     border: none;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 16px;
+    width: 80%;
+    
 }
 
 .options_card{
@@ -78,6 +107,43 @@
     font-family: $lexend-font;
 }
 
+.options_input__icon{
+    font-size: 40px;
+    color: $dark-blue;
+    padding-left: 8px;
+}
+
+.options_input__text{
+    margin: 0 auto;
+}
+
 .options_input::placeholder{
     color: $dark-blue;
 }
+
+.options_input__icon:hover{
+    color: $dark-red;
+}
+
+.options_input__link{
+    display: flex;
+}
+
+.options_isloading{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.options_customloader{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    border:8px solid;
+    border-color:$dark-blue $extra-light-blue;
+    animation:s2 1s infinite;
+}
+@keyframes s2 {to{transform: rotate(1turn)}}
