@@ -19,10 +19,10 @@ export default function Docs() {
         type={"get"}
         title={"/"}
         description={`
-        É uma request GET, qualquer parâmetro de envio será ignorado. Traz as informações iniciais da API: 
-        name [str] - nome do usuário, 
-        agency [str] - 4 dígitos, 
-        account [str] - 5 dígitos, um traço e digito final
+        É uma request GET, qualquer parâmetro de envio será ignorado. Traz as informações iniciais da API:\n 
+        name [str] - nome do usuário,\n
+        agency [str] - 4 dígitos,\n
+        account [str] - 6 dígitos no esquema XXXXX-X\n
         current_balance [float]
         `}
         response={`{
