@@ -18,7 +18,13 @@ export default function Docs() {
       <DocCard
         type={"get"}
         title={"/"}
-        description={"descrição"}
+        description={`
+        É uma request GET, qualquer parâmetro de envio será ignorado. Traz as informações iniciais da API: 
+        name [str] - nome do usuário, 
+        agency [str] - 4 dígitos, 
+        account [str] - 5 dígitos, um traço e digito final
+        current_balance [float]
+        `}
         response={`{
         "name": "Vitor Soller",
         "agency": "0000",
