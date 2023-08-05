@@ -19,11 +19,13 @@ export default function Docs() {
         type={"get"}
         title={"/"}
         description={`
-        É uma request GET, qualquer parâmetro de envio será ignorado. Traz as informações iniciais da API:\n 
-        name [str] - nome do usuário,\n
-        agency [str] - 4 dígitos,\n
-        account [str] - 6 dígitos no esquema XXXXX-X\n
-        current_balance [float]
+É uma request GET, qualquer parâmetro de envio será ignorado. Traz as 
+informações iniciais da API: 
+
+  name [str] - nome do usuário, 
+  agency [str] - 4 dígitos,
+  account [str] - 6 dígitos no esquema XXXXX-X
+  current_balance [float]
         `}
         response={`{
         "name": "Vitor Soller",
@@ -37,9 +39,13 @@ export default function Docs() {
 
         title={"/deposit"}
         description={`
-        Trata-se de um POST, são passados a quantidade de células, se não possuir a CHAVE daquele valor, a quantidade é 0. O valor deve ser depositado na conta do usuário. Retorna os seguintes valores: \n
-        current_balance [float] - valor atual na conta (após o depósito), \n
-        timestamp[float] - instante da operação em milissegundos
+Trata-se de um POST, são passados a quantidade de células, se não possuir 
+a CHAVE daquele valor, a quantidade é 0. O valor deve ser depositado 
+na conta do usuário. Retorna os seguintes valores: 
+
+  current_balance [float] - valor atual na conta (após o depósito), 
+  timestamp[float] - instante da operação em milissegundos
+  
 `}
         request={`{
         "2": 1,
@@ -60,10 +66,14 @@ export default function Docs() {
 
         title={"/withdraw"}
         description={`
-        Trata-se de um POST, são passados a quantidade de células, se não possuir a CHAVE daquele valor, a quantidade é 0. O valor deve ser deduzido da conta do usuário. Retorna os seguintes valores: \n
-        current_balance [float] - valor atual na conta (após o saque), \n
-        timestamp[float] - instante da operação em milissegundos
-        `}
+Trata-se de um POST, são passados a quantidade de células, se não possuir 
+a CHAVE daquele valor, a quantidade é 0. O valor deve ser deduzido 
+da conta do usuário. Retorna os seguintes valores: 
+  
+  current_balance [float] - valor atual na conta (após o saque), 
+  timestamp[float] - instante da operação em milissegundos
+  
+  `}
         request={`{
         "2": 1,
         "5": 2,
@@ -82,11 +92,13 @@ export default function Docs() {
         type={"get"}
         title={"/history"}
         description={`
-        É uma request GET, qualquer parâmetro de envio será ignorado. Traz as últimas transações da conta em forma de lista. São elas: \n
-        type [str] - tipo da transação realizada, \n
-        value [float] - valor envolvido na operação, \n
-        current_balance [float] - valor atual na conta (após o depósito), \n
-        timestamp[float] - instante da operação em milissegundos
+É uma request GET, qualquer parâmetro de envio será ignorado. 
+Traz as últimas transações da conta em forma de lista. São elas: 
+        
+  type [str] - tipo da transação realizada, 
+  value [float] - valor envolvido na operação, 
+  current_balance [float] - valor atual na conta (após o depósito), 
+  timestamp[float] - instante da operação em milissegundos
         `}
         response={`{
   [

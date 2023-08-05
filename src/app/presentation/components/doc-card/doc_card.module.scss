@@ -60,11 +60,11 @@
   border-radius: 10px;
   color: $dark-blue;
   font-size: 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
   padding: 16px 16px;
-  line-break: anywhere;
+}
+
+pre{
+  font-family: $lexend-font;
 }
 
 .card_contentdiv__json{
