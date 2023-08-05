@@ -41,19 +41,16 @@ export default function Transactions() {
     }
   );
 
+  const sortedTransactions = transactions.sort((a, b) => {
+    return new Date(b.date) - new Date(a.date);});
+
   useEffect(() => {
     setIsLoading(true);
     datasource.getAllTransactions().then((response) => {
-      if(response.transactionsList === undefined){
-        setIsLoading(false);
-        setIsError(true);
-        setErrorMessage("Invalid parameters");
-        return;
-      }
       try{
         const transactionsList = response.map((element) => element);
         setTransactions(transactionsList);
-        localStorage.setItem("transactionsList",);
+        localStorage.setItem("transactionsList", response.transactionsList);
       } catch (e){
         setIsLoading(false);
         setIsError(true);
@@ -90,7 +87,7 @@ export default function Transactions() {
           <div className={styles.transactions_title} >
             Historico de transações
           </div>
-          {transactions.map((element) => {
+          {sortedTransactions.map((element) => {
             let date = new Date(element.date).toString();
             date = date.substring(4, date.length - 38);
             return (
