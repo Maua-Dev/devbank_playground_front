@@ -47,6 +47,12 @@ export default function Home() {
       setIsLoading(true);
       
       datasource.getAccount().then((response) => {
+        if(response == null){
+          setIsLoading(false);
+          setIsError(true);
+          setErrorMessage("Invalid parameters");
+          return;
+        }
         if(response.name === undefined || response.agency === undefined || response.account === undefined || response.currentBalance === undefined){
           setIsLoading(false);
           setIsError(true);
@@ -80,7 +86,12 @@ export default function Home() {
     function (error) {
       setIsLoading(false);
       setIsError(true);
-      setErrorMessage(error.message);
+      console.log(error);
+      if(error.response !== undefined){
+        setErrorMessage(error.response.data.detail);
+      } else {
+        setErrorMessage(error.message)
+      }
       return Promise.reject(error);
     }
   );

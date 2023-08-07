@@ -31,12 +31,19 @@ export default function Transactions() {
 
   axios.interceptors.response.use(
     function (response) {
+      
+
+      
       return response;
     },
     function (error) {
       setIsLoading(false);
       setIsError(true);
-      setErrorMessage(error.message);
+      if(error.response !== undefined){
+        setErrorMessage(error.response.data.detail);
+      } else {
+        setErrorMessage(error.message)
+      }
       return Promise.reject(error);
     }
   );
@@ -47,8 +54,24 @@ export default function Transactions() {
   useEffect(() => {
     setIsLoading(true);
     datasource.getAllTransactions().then((response) => {
+      if(response == null){
+        setIsLoading(false);
+        setIsError(true);
+        setErrorMessage("Invalid parameters");
+        return;
+      }
+      const transactionsList = response.map((element) => element);
+      for(let i = 0; i <= transactionsList.length; i++){
+        if(transactionsList[i].type === undefined || transactionsList[i].value  === undefined|| transactionsList[i].currentBalance  === undefined || transactionsList[i].date  === undefined){
+          setIsLoading(false);
+          setIsError(true);
+          setErrorMessage("Invalid parameters");
+          return;
+        }
+      }
+      
       try{
-        const transactionsList = response.map((element) => element);
+
         setTransactions(transactionsList);
         localStorage.setItem("transactionsList", response.transactionsList);
       } catch (e){

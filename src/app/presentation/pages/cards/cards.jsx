@@ -34,20 +34,31 @@ export default function Cards({ action }) {
     isError,
     errorMessage,
     setIsError,
-    setErrorMessage
-
+    setErrorMessage,
   } = useContext(GlobalContext);
 
   const navigate = useNavigate();
 
-    const handleOnClick = () => {
-        navigate(-1);
-    }
+  const handleOnClick = () => {
+    navigate(-1);
+  };
 
   const handleDeposit = () => {
     setIsLoading(true);
 
     datasource.deposit(wallet).then((response) => {
+      if (response == null) {
+        setIsLoading(false);
+        setIsError(true);
+        setErrorMessage("Invalid parameters");
+        return;
+      }
+      if (response.current_balance == null) {
+        setIsLoading(false);
+        setIsError(true);
+        setErrorMessage("Invalid parameters");
+        return;
+      }
       localStorage.setItem("currentBalance", response.current_balance);
       setCurrentBalance(response.current_balance);
       setIsLoading(false);
@@ -57,16 +68,20 @@ export default function Cards({ action }) {
   const handleWithdraw = () => {
     setIsLoading(true);
     datasource.withdraw(wallet).then((response) => {
-      try{
-        localStorage.setItem("currentBalance", response.current_balance);
-        setCurrentBalance(response.current_balance);
-      } catch (e) {
+      if (response == null) {
         setIsLoading(false);
         setIsError(true);
-        setErrorMessage(e.message);
+        setErrorMessage("Invalid parameters");
+        return;
+      }
+      if (response.current_balance == null) {
+        setIsLoading(false);
+        setIsError(true);
+        setErrorMessage("Invalid parameters");
+        return;
       }
       setIsLoading(false);
-    })
+    });
   };
 
   axios.interceptors.response.use(
@@ -76,7 +91,11 @@ export default function Cards({ action }) {
     function (error) {
       setIsLoading(false);
       setIsError(true);
-      setErrorMessage(error.message);
+      if (error.response !== undefined) {
+        setErrorMessage(error.response.data.detail);
+      } else {
+        setErrorMessage(error.message);
+      }
       return Promise.reject(error);
     }
   );
@@ -84,11 +103,11 @@ export default function Cards({ action }) {
   return (
     <div className={isError ? styles.cards_error : styles.cards}>
       {isError ? (
-          <ErrorPopup
-            message={errorMessage}
-            className={styles.transactions_popup}
-            to={''}
-          />
+        <ErrorPopup
+          message={errorMessage}
+          className={styles.transactions_popup}
+          to={""}
+        />
       ) : (
         ""
       )}
@@ -96,36 +115,47 @@ export default function Cards({ action }) {
         <div className={styles.cards_isloading}>
           <div className={styles.cards_customloader}></div>
         </div>
-      ) : <><Header
-      name={userAccount.name}
-      account={userAccount.account}
-      agency={userAccount.agency}
-    />
-    <Informations
-      currentBalance={userAccount.currentBalance}
-      actionAmount={wallet.getTotal()}
-      action={action === "Depositar" ? "depositada" : "sacada"}
-    />
-    <div className={styles.main}>
-      <span className={styles.main_title}>
-        Selecione as cédulas e a quantidade que você deseja.
-      </span>
-      <MoneyCard value={2} wallet={two} setWallet={setTwo} />
-      <MoneyCard value={5} wallet={five} setWallet={setFive} />
-      <MoneyCard value={10} wallet={ten} setWallet={setTen} />
-      <MoneyCard value={20} wallet={twenty} setWallet={setTwenty} />
-      <MoneyCard value={50} wallet={fifty} setWallet={setFifty} />
-      <MoneyCard value={100} wallet={oneHundred} setWallet={setOneHundred} />
-      <MoneyCard value={200} wallet={twoHundred} setWallet={setTwoHundred} />
-    </div>
-    <div className={styles.buttons}>
-      <Button title={"Voltar"} onClick={handleOnClick} />
-      <Button
-        title={action}
-        onClick={action === "Depositar" ? handleDeposit : handleWithdraw}
-      />
-    </div></> }
-      
+      ) : (
+        <>
+          <Header
+            name={userAccount.name}
+            account={userAccount.account}
+            agency={userAccount.agency}
+          />
+          <Informations
+            currentBalance={userAccount.currentBalance}
+            actionAmount={wallet.getTotal()}
+            action={action === "Depositar" ? "depositada" : "sacada"}
+          />
+          <div className={styles.main}>
+            <span className={styles.main_title}>
+              Selecione as cédulas e a quantidade que você deseja.
+            </span>
+            <MoneyCard value={2} wallet={two} setWallet={setTwo} />
+            <MoneyCard value={5} wallet={five} setWallet={setFive} />
+            <MoneyCard value={10} wallet={ten} setWallet={setTen} />
+            <MoneyCard value={20} wallet={twenty} setWallet={setTwenty} />
+            <MoneyCard value={50} wallet={fifty} setWallet={setFifty} />
+            <MoneyCard
+              value={100}
+              wallet={oneHundred}
+              setWallet={setOneHundred}
+            />
+            <MoneyCard
+              value={200}
+              wallet={twoHundred}
+              setWallet={setTwoHundred}
+            />
+          </div>
+          <div className={styles.buttons}>
+            <Button title={"Voltar"} onClick={handleOnClick} />
+            <Button
+              title={action}
+              onClick={action === "Depositar" ? handleDeposit : handleWithdraw}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 }
