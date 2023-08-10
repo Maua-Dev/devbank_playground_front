@@ -48,7 +48,7 @@ function App() {
             }
           />
           <Route path="/options" element={ apiEndpoint && apiEndpoint.includes('.') ? (
-                <Options currentBalance={0} />
+                <Options currentBalance={localStorage.getItem('currentBalance')} />
               ) : (
                 <Navigate to="/" />
               )} />

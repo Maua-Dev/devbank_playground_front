@@ -12,7 +12,12 @@ export default class GlobalDatasource {
       this.url = `https://${this.url}`;
     }
     const response = await axios.get(this.url);
-    return Account.fromJson(response.data);
+    
+    if(response.data != null){
+      return Account.fromJson(response.data);
+    } else {
+      return null;
+    }
   }
 
   async withdraw(wallet) {
@@ -36,6 +41,10 @@ export default class GlobalDatasource {
       this.url = `https://${this.url}`;
     }
     const response = await axios.get(`${this.url}/history`)
-    return Transaction.fromJsons(response.data.all_transactions);
+    if(response.data !== null){
+      return Transaction.fromJsons(response.data.all_transactions);
+    } else {
+      return null;
+    }
   }
 }
