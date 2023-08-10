@@ -151,7 +151,6 @@ Retrieve the user's transaction history.
 - [@HectorGuerrini](https://github.com/hectorguerrini)
 - [@JoaoVitorBranco](https://github.com/JoaoVitorBranco)
 - [@Brvilardi](https://github.com/Brvilardi)
-- [@BRUNO-FEVE](https://github.com/BRUNO-FEVE)
 - [@Isabella Augusta Rodrigues](https://www.behance.net/aaaaaa273)
 
 ## 🔥 Special Thanks
