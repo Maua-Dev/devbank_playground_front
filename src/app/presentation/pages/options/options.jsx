@@ -54,18 +54,14 @@ export default function Options() {
       return response;
     },
     function (error) {
-      localStorage.setItem("name", "");
-      localStorage.setItem("agency", "");
-      localStorage.setItem("account", "");
-      localStorage.setItem("currentBalance", "");
-      setName("");
-      setAgency("");
-      setAccount("");
-      setCurrentBalance("");
-      setIsLoading(false);
       setIsLoading(false);
       setIsError(true);
-      setErrorMessage(error.message);
+      console.log(error);
+      if(error.response !== undefined){
+        setErrorMessage(error.response.data.detail);
+      } else {
+        setErrorMessage(error.message)
+      }
       return Promise.reject(error);
     }
   );
@@ -73,6 +69,19 @@ export default function Options() {
   useEffect(() => {
       setIsLoading(true);
       datasource.getAccount().then((response) => {
+        if(response == null){
+          setIsLoading(false);
+          setIsError(true);
+          setErrorMessage("Invalid parameters");
+          return;
+        }
+        if(response.name === undefined || response.agency === undefined || response.account === undefined || response.currentBalance === undefined){
+          setIsLoading(false);
+          setIsError(true);
+          setErrorMessage("Invalid parameters");
+          return;
+        }
+        
         try{
           localStorage.setItem("name", response.name);
           localStorage.setItem("agency", response.agency);

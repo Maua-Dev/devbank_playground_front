@@ -43,14 +43,14 @@ export default function DocCard({ title, description, request, response, type })
         className={selected ? styles.card_content : styles.card_content__show}
       >
         <div className={styles.card_contentdiv}>
-          <p className={styles.card_description}>{description}</p>
+          <pre className={styles.card_description}>{description}</pre>
         </div>
         {request ? (
           <div className={requestStyle} onClick={handleRequestOnClick}>
             <h2 className={styles.card_title}>Request</h2>
-            <pre className={styles.card_json}>
+            <code className={styles.card_json}>
               {request}
-            </pre>
+            </code>
             <BiSolidCopy className={styles.card_icon} />
           </div>
         ) : (
@@ -59,9 +59,9 @@ export default function DocCard({ title, description, request, response, type })
         {response ? (
           <div className={responseStyle} onClick={handleResponseOnClick}>
             <h2 className={styles.card_title}>Response</h2>
-            <pre className={styles.card_json}>
+            <code className={styles.card_json}>
               {response}
-            </pre>
+            </code>
             <BiSolidCopy className={styles.card_icon} />
           </div>
         ) : (

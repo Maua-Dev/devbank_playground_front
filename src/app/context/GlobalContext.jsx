@@ -38,6 +38,8 @@ export default function GlobalContextProvider({ children }) {
   const [account, setAccount] = useState(localStorage.getItem("account"));
   const [currentBalance, setCurrentBalance] = useState(localStorage.getItem("currentBalance"));
   const userAccount = new Account(name, agency, account, currentBalance);
+  console.log(userAccount.currentBalance);
+  console.log(currentBalance)
     
   const [transactions, setTransactions] = useState([]);
 
