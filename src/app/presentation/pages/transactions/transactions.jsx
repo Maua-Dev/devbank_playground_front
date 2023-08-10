@@ -61,14 +61,14 @@ export default function Transactions() {
         return;
       }
       const transactionsList = response.map((element) => element);
-      for(let i = 0; i <= transactionsList.length; i++){
-        if(transactionsList[i].type === undefined || transactionsList[i].value  === undefined|| transactionsList[i].currentBalance  === undefined || transactionsList[i].date  === undefined){
+      transactionsList.forEach((element) => {
+        if(element.type === undefined || element.value  === undefined|| element.currentBalance  === undefined || element.date  === undefined){
           setIsLoading(false);
           setIsError(true);
           setErrorMessage("Invalid parameters");
           return;
         }
-      }
+      });
       
       try{
 
