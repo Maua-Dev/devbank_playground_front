@@ -144,8 +144,6 @@ Retrieve the user's transaction history.
 
 - **Notes:** The response will include a list of transactions, each with the transaction type, value, current balance after the transaction, and timestamp in milliseconds.
 
-🚧👷 Under construction 👷🚧
-
 ## 👨‍🎨 Contributors
 
 - [@EnricoSantarelli](https://github.com/EnricoSantarelli)
