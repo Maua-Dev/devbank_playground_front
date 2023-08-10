@@ -46,7 +46,103 @@ This command will remove the single build dependency from your project.
 
 ## 🛣️ Routes
 
-🚧👷 Under construction 👷🚧
+### GET /
+
+Retrieve initial user information.
+- **Method:** GET
+- **Parameters:** None (any parameters sent will be ignored)
+- **Response example:**
+
+```json
+{
+    "name": "Vitor Soller",
+    "agency": "0000",
+    "account": "00000-0",
+    "current_balance": 1000.0
+}
+```
+
+### POST /deposit
+
+Deposit funds into the user's account.
+- **Method:** POST
+- **Request example:**
+
+```json
+{
+    "2": 1,
+    "5": 2,
+    "10": 3,
+    "20": 4,
+    "50": 5,
+    "100": 6,
+    "200": 7
+}
+```
+- **Response example:**
+
+```json
+{
+    "current_balance": 1000.0,
+    "timestamp": 1690482853890
+}
+```
+
+- **Notes:** If the deposited amount is double the current account balance, the API will return a 403 Forbidden status code and the message "Depósito suspeito" (Suspicious deposit).
+
+### POST /withdraw
+
+Withdraw funds from the user's account.
+- **Method:** POST
+- **Request example:**
+
+```json
+{
+    "2": 1,
+    "5": 2,
+    "10": 3,
+    "20": 4,
+    "50": 5,
+    "100": 6,
+    "200": 7
+}
+```
+- **Response example:**
+
+```json
+{
+    "current_balance": 1000.0,
+    "timestamp": 1690482853890
+}
+```
+
+- **Notes:** If the withdraw amount exceeds the current account balance, the API will return a 403 Forbidden status code and the message "Saldo insuficiente para transação" (Insufficient balance for transaction).
+
+### GET /history
+
+Retrieve the user's transaction history.
+- **Method:** GET
+- **Parameters:** None (any parameters sent will be ignored)
+- **Response example:**
+
+```json
+[
+    {
+        "type": "deposit",
+        "value": 100.0,
+        "current_balance": 1200.00,
+        "timestamp": 1690482853890
+    },
+    {
+        "type": "withdraw",
+        "value": 200.0,
+        "current_balance": 1000.0,
+        "timestamp": 1690482853890
+    }
+]
+```
+
+- **Notes:** The response will include a list of transactions, each with the transaction type, value, current balance after the transaction, and timestamp in milliseconds.
 
 ## 👨‍🎨 Contributors
 
@@ -55,7 +151,6 @@ This command will remove the single build dependency from your project.
 - [@HectorGuerrini](https://github.com/hectorguerrini)
 - [@JoaoVitorBranco](https://github.com/JoaoVitorBranco)
 - [@Brvilardi](https://github.com/Brvilardi)
-- [@BRUNO-FEVE](https://github.com/BRUNO-FEVE)
 - [@Isabella Augusta Rodrigues](https://www.behance.net/aaaaaa273)
 
 ## 🔥 Special Thanks
