@@ -80,6 +80,8 @@ export default function Cards({ action }) {
         setErrorMessage("Invalid parameters");
         return;
       }
+      localStorage.setItem("currentBalance", response.current_balance);
+      setCurrentBalance(response.current_balance);
       setIsLoading(false);
     });
   };
