@@ -12,6 +12,10 @@ jobs:
     environment: 
       name: ${{ github.ref_name }}
     runs-on: ubuntu-latest
+    env:
+      AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+      AWS_REGION:    ${{ vars.AWS_REGION }}
+      IDENT:         hnb659fds
     permissions:
       id-token: write
       contents: read
