@@ -6,12 +6,16 @@ on:
       - dev
       - homolog
       - prod
-       
+
 jobs:
   DeployToAWS:
     environment: 
       name: ${{ github.ref_name }}
     runs-on: ubuntu-latest
+    env:
+      AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+      AWS_REGION:    ${{ vars.AWS_REGION }}
+      IDENT:         hnb659fds
     permissions:
       id-token: write
       contents: read
@@ -42,6 +46,10 @@ jobs:
             npm install
             cd iac
             npm install
+        - name: Bootstrap Check
+          run: |
+            cd iac
+            cdk bootstrap aws://${{ secrets.AWS_ACCOUNT_ID }}/${{ vars.AWS_REGION }} 
         - name: Build and Export
           run: |
             npm run build
