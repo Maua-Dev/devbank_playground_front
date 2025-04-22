@@ -46,53 +46,49 @@ jobs:
           run: |
             ACCOUNT=${{ secrets.AWS_ACCOUNT_ID }}
             REGION=sa-east-1
-            IDENT=hnb659fds   # ajuste para o seu identificador de bootstrap
+            IDENT=hnb659fds   # seu identificador de bootstrap
   
-            echo "🔄 Limpando ECR e SSM parameter..."
+            # 1) Apaga ECR e SSM parameter
             aws ecr delete-repository \
               --repository-name cdk-${IDENT}-container-assets-${ACCOUNT}-${REGION} \
-              --force \
-              || true
+              --force || true
   
             aws ssm delete-parameter \
               --name "/cdk-bootstrap/${IDENT}/version" \
               --region ${REGION} \
               || true
   
-            for ROLE_SUFFIX in lookup-role cfn-exec-role; do
+            # 2) Apaga todos os roles do bootstrap
+            for ROLE_SUFFIX in lookup-role cfn-exec-role image-publishing-role file-publishing-role; do
               ROLE_NAME=cdk-${IDENT}-${ROLE_SUFFIX}-${ACCOUNT}-${REGION}
-              echo "👉 Limpando role ${ROLE_NAME}"
+              echo "🔹 Cleaning role ${ROLE_NAME}"
   
-              # Detach all managed policies
+              # detach managed policies
               for P in $(aws iam list-attached-role-policies \
                           --role-name ${ROLE_NAME} \
                           --query AttachedPolicies[].PolicyArn \
                           --output text); do
-                echo "  - Detaching managed policy ${P}"
-                aws iam detach-role-policy \
-                  --role-name ${ROLE_NAME} \
-                  --policy-arn ${P} \
-                  || true
+                aws iam detach-role-policy --role-name ${ROLE_NAME} --policy-arn ${P} || true
               done
   
-              # Delete all inline policies
+              # delete inline policies
               for P in $(aws iam list-role-policies \
                           --role-name ${ROLE_NAME} \
                           --query PolicyNames[] \
                           --output text); do
-                echo "  - Deleting inline policy ${P}"
-                aws iam delete-role-policy \
-                  --role-name ${ROLE_NAME} \
-                  --policy-name ${P} \
-                  || true
+                aws iam delete-role-policy --role-name ${ROLE_NAME} --policy-name ${P} || true
               done
   
-              # Finally, delete the role
-              echo "  - Deleting role ${ROLE_NAME}"
-              aws iam delete-role \
-                --role-name ${ROLE_NAME} \
-                || true
+              # delete the role itself
+              aws iam delete-role --role-name ${ROLE_NAME} || true
             done
+  
+            # 3) Apaga o bucket de staging/assets
+            BUCKET_NAME=cdk-${IDENT}-assets-${ACCOUNT}-${REGION}
+            echo "🔹 Deleting S3 bucket ${BUCKET_NAME}"
+            aws s3 rm s3://${BUCKET_NAME} --recursive || true
+            aws s3 rb s3://${BUCKET_NAME} --force || true
+
         - name: Bootstrap Check
           run: |
             cd iac
