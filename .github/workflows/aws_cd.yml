@@ -54,26 +54,28 @@ jobs:
               --name "/cdk-bootstrap/${IDENT}/version" \
               --region ${AWS_REGION} || true
   
-            # 2) IAM Roles
-            for ROLE_SUFFIX in lookup-role cfn-exec-role image-publishing-role file-publishing-role; do
-              ROLE_NAME=cdk-${IDENT}-${ROLE_SUFFIX}-${AWS_ACCOUNT_ID}-${AWS_REGION}
-              echo "🔹 Cleaning role ${ROLE_NAME}"
-              # Detach managed policies
-              for P in $(aws iam list-attached-role-policies \
-                          --role-name ${ROLE_NAME} \
-                          --query AttachedPolicies[].PolicyArn \
-                          --output text); do
-                aws iam detach-role-policy --role-name ${ROLE_NAME} --policy-arn ${P} || true
-              done
-              # Delete inline policies
-              for P in $(aws iam list-role-policies \
-                          --role-name ${ROLE_NAME} \
-                          --query PolicyNames[] \
-                          --output text); do
-                aws iam delete-role-policy --role-name ${ROLE_NAME} --policy-name ${P} || true
-              done
-              # Delete the role
-              aws iam delete-role --role-name ${ROLE_NAME} || true
+            for ROLE_SUFFIX in lookup-role cfn-exec-role image-publishing-role file-publishing-role deploy-role; do
+            ROLE_NAME=cdk-${IDENT}-${ROLE_SUFFIX}-${ACCOUNT}-${REGION}
+            echo "🔹 Cleaning role ${ROLE_NAME}"
+
+            # Detach managed policies
+            for P in $(aws iam list-attached-role-policies \
+                        --role-name ${ROLE_NAME} \
+                        --query AttachedPolicies[].PolicyArn \
+                        --output text); do
+              aws iam detach-role-policy --role-name ${ROLE_NAME} --policy-arn ${P} || true
+            done
+
+            # Delete inline policies
+            for P in $(aws iam list-role-policies \
+                        --role-name ${ROLE_NAME} \
+                        --query PolicyNames[] \
+                        --output text); do
+              aws iam delete-role-policy --role-name ${ROLE_NAME} --policy-name ${P} || true
+            done
+
+            # Delete the role itself
+            aws iam delete-role --role-name ${ROLE_NAME} || true
             done
   
             # 3) S3 staging bucket (with versioning)
