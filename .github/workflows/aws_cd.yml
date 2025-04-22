@@ -44,61 +44,70 @@ jobs:
             npm install
         - name: Cleanup orphaned CDK bootstrap resources
           run: |
-            ACCOUNT=${{ secrets.AWS_ACCOUNT_ID }}
-            REGION=sa-east-1
-            IDENT=hnb659fds   # seu identificador de bootstrap
+            echo "🔄 Cleaning orphaned CDK bootstrap resources in $AWS_REGION..."
   
-            # 1) Apaga ECR e SSM parameter
+            # 1) ECR & SSM
             aws ecr delete-repository \
-              --repository-name cdk-${IDENT}-container-assets-${ACCOUNT}-${REGION} \
+              --repository-name cdk-${IDENT}-container-assets-${AWS_ACCOUNT_ID}-${AWS_REGION} \
               --force || true
-  
             aws ssm delete-parameter \
               --name "/cdk-bootstrap/${IDENT}/version" \
-              --region ${REGION} \
-              || true
+              --region ${AWS_REGION} || true
   
-            # 2) Apaga todos os roles do bootstrap
+            # 2) IAM Roles
             for ROLE_SUFFIX in lookup-role cfn-exec-role image-publishing-role file-publishing-role; do
-              ROLE_NAME=cdk-${IDENT}-${ROLE_SUFFIX}-${ACCOUNT}-${REGION}
+              ROLE_NAME=cdk-${IDENT}-${ROLE_SUFFIX}-${AWS_ACCOUNT_ID}-${AWS_REGION}
               echo "🔹 Cleaning role ${ROLE_NAME}"
-  
-              # detach managed policies
+              # Detach managed policies
               for P in $(aws iam list-attached-role-policies \
                           --role-name ${ROLE_NAME} \
                           --query AttachedPolicies[].PolicyArn \
                           --output text); do
                 aws iam detach-role-policy --role-name ${ROLE_NAME} --policy-arn ${P} || true
               done
-  
-              # delete inline policies
+              # Delete inline policies
               for P in $(aws iam list-role-policies \
                           --role-name ${ROLE_NAME} \
                           --query PolicyNames[] \
                           --output text); do
                 aws iam delete-role-policy --role-name ${ROLE_NAME} --policy-name ${P} || true
               done
-  
-              # delete the role itself
+              # Delete the role
               aws iam delete-role --role-name ${ROLE_NAME} || true
             done
   
-            # 3) Apaga o bucket de staging/assets
-            BUCKET_NAME=cdk-${IDENT}-assets-${ACCOUNT}-${REGION}
-            echo "🔹 Deleting S3 bucket ${BUCKET_NAME}"
-            aws s3 rm s3://${BUCKET_NAME} --recursive || true
-            aws s3 rb s3://${BUCKET_NAME} --force || true
-
-        - name: Cleanup orphaned S3 staging bucket
-          run: |
-            ACCOUNT=${{ secrets.AWS_ACCOUNT_ID }}
-            REGION=sa-east-1
-            IDENT=hnb659fds
-        
-            BUCKET=cdk-${IDENT}-assets-${ACCOUNT}-${REGION}
-            echo "❌ Excluindo bucket de staging $BUCKET..."
-            aws s3 rm s3://$BUCKET --recursive          || true
-            aws s3 rb s3://$BUCKET --force             || true
+            # 3) S3 staging bucket (with versioning)
+            BUCKET=cdk-${IDENT}-assets-${AWS_ACCOUNT_ID}-${AWS_REGION}
+            echo "🔹 Esvaziando bucket versionado ${BUCKET}..."
+  
+            # Apaga todas as versões
+            aws s3api list-object-versions \
+              --bucket ${BUCKET} \
+              --query 'Versions[].{Key:Key,VersionId:VersionId}' \
+              --output text \
+            | while read KEY VERSION; do
+                aws s3api delete-object \
+                  --bucket ${BUCKET} \
+                  --key "${KEY}" \
+                  --version-id "${VERSION}" \
+                  || true
+              done
+  
+            # Apaga todos os delete-markers
+            aws s3api list-object-versions \
+              --bucket ${BUCKET} \
+              --query 'DeleteMarkers[].{Key:Key,VersionId:VersionId}' \
+              --output text \
+            | while read KEY VERSION; do
+                aws s3api delete-object \
+                  --bucket ${BUCKET} \
+                  --key "${KEY}" \
+                  --version-id "${VERSION}" \
+                  || true
+              done
+  
+            # Finalmente remove o bucket
+            aws s3 rb s3://${BUCKET} --force || true
 
         - name: Bootstrap Check
           run: |
