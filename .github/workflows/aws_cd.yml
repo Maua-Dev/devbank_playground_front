@@ -89,6 +89,17 @@ jobs:
             aws s3 rm s3://${BUCKET_NAME} --recursive || true
             aws s3 rb s3://${BUCKET_NAME} --force || true
 
+        - name: Cleanup orphaned S3 staging bucket
+          run: |
+            ACCOUNT=${{ secrets.AWS_ACCOUNT_ID }}
+            REGION=sa-east-1
+            IDENT=hnb659fds
+        
+            BUCKET=cdk-${IDENT}-assets-${ACCOUNT}-${REGION}
+            echo "❌ Excluindo bucket de staging $BUCKET..."
+            aws s3 rm s3://$BUCKET --recursive          || true
+            aws s3 rb s3://$BUCKET --force             || true
+
         - name: Bootstrap Check
           run: |
             cd iac
