@@ -96,7 +96,7 @@ jobs:
         - name: Bootstrap Check
           run: |
             cd iac
-            cdk bootstrap aws://${{ env.AWS_ACCOUNT_ID }}/${{ vars.AWS_REGION }} 
+            cdk bootstrap aws://${{ secrets.AWS_ACCOUNT_ID }}/${{ vars.AWS_REGION }} 
         - name: Build and Export
           run: |
             npm run build
