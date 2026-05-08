@@ -1,25 +1,23 @@
-import * as cdk from 'aws-cdk-lib';
-import * as s3 from 'aws-cdk-lib/aws-s3';
-import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
-import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
-import { Certificate } from 'aws-cdk-lib/aws-certificatemanager';
-import * as route53 from 'aws-cdk-lib/aws-route53';
-import * as route53Targets from 'aws-cdk-lib/aws-route53-targets';
-import * as iam from 'aws-cdk-lib/aws-iam';
+import * as cdk from "aws-cdk-lib";
+import * as s3 from "aws-cdk-lib/aws-s3";
+import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
+// import * as origins from 'aws-cdk-lib/aws-cloudfront-origins'
+import { Certificate } from "aws-cdk-lib/aws-certificatemanager";
+import * as iam from "aws-cdk-lib/aws-iam";
+import * as route53 from "aws-cdk-lib/aws-route53";
+import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
 
-import { Construct } from 'constructs';
+import { Construct } from "constructs";
 
 export class IacStack extends cdk.Stack {
-  constructor(scope: Construct, id: string,  props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const stage = process.env.GITHUB_REF_NAME || 'dev';
-    const acmCertificateArn = process.env.ACM_CERTIFICATE_ARN || 'arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012';
-    const alternativeDomain = process.env.ALTERNATIVE_DOMAIN_NAME || 'simple_react_template.devmaua.com';
-    const hostedZoneIdValue = process.env.HOSTED_ZONE_ID || 'Z1UJRXOUMOOFQ8';
-    const projectName = process.env.PROJECT_NAME || 'SimpleReactTemplateFront';
+    const stage = process.env.STAGE || "dev";
+    const acmCertificateArn = process.env.ACM_CERTIFICATE_ARN || "";
+    const alternativeDomainName = process.env.ALTERNATIVE_DOMAIN_NAME || "";
 
-    const s3Bucket = new s3.Bucket(this, projectName + 'Bucket' + stage, {
+    const s3Bucket = new s3.Bucket(this, "PlaygroundFrontBucket" + stage, {
       versioned: true,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
@@ -27,97 +25,153 @@ export class IacStack extends cdk.Stack {
       autoDeleteObjects: true,
     });
 
-    const oac = new cloudfront.CfnOriginAccessControl(this, 'AOC', {
+    const oac = new cloudfront.CfnOriginAccessControl(this, "AOC", {
       originAccessControlConfig: {
-        name: projectName + 'Bucket OAC' + stage,
-        originAccessControlOriginType: 's3',
-        signingBehavior: 'always',
-        signingProtocol: 'sigv4',
+        name: "Playground Front Bucket OAC " + stage,
+        originAccessControlOriginType: "s3",
+        signingBehavior: "always",
+        signingProtocol: "sigv4",
       },
-    })
+    });
 
-    let viewerCertificate = cloudfront.ViewerCertificate.fromCloudFrontDefaultCertificate()
-    if (stage === 'prod') {
-        viewerCertificate = cloudfront.ViewerCertificate.fromAcmCertificate(
-        Certificate.fromCertificateArn(this, projectName + 'Certificate-' + stage, acmCertificateArn),
-        {
-          aliases: [alternativeDomain],
-          securityPolicy: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
-        },
-        )
+    if (
+      (stage === "dev" || stage === "homolog" || stage === "prod") &&
+      !acmCertificateArn
+    ) {
+      throw new Error(
+        `ACM_CERTIFICATE_ARN é obrigatório para o stage: ${stage}`,
+      );
     }
-    
-    const cloudFrontWebDistribution = new cloudfront.CloudFrontWebDistribution(this, 'CDN', {
-      comment: projectName + 'Distribution ' + stage,
-      originConfigs: [
+
+    // Permite múltiplos domínios alternativos separados por vírgula
+    let domainNames: string[] = [];
+    if (alternativeDomainName) {
+      domainNames = alternativeDomainName
+        .split(",")
+        .map((d) => d.trim())
+        .filter(Boolean);
+    }
+
+    const hostedZoneId = process.env.HOSTED_ZONE_ID || "";
+    const hostedZoneName = process.env.HOSTED_ZONE_NAME || "";
+
+    let viewerCertificate =
+      cloudfront.ViewerCertificate.fromCloudFrontDefaultCertificate();
+
+    if (stage === "dev" || stage === "homolog" || stage === "prod") {
+      viewerCertificate = cloudfront.ViewerCertificate.fromAcmCertificate(
+        Certificate.fromCertificateArn(
+          this,
+          "PlaygroundFrontCertificate-" + stage,
+          acmCertificateArn,
+        ),
         {
-          s3OriginSource: {
-            s3BucketSource: s3Bucket,
-          },
-          behaviors: [
-            {
-              isDefaultBehavior: true,
-              allowedMethods: cloudfront.CloudFrontAllowedMethods.GET_HEAD,
-              compress: true,
-              cachedMethods: cloudfront.CloudFrontAllowedCachedMethods.GET_HEAD,
-              viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-              minTtl: cdk.Duration.seconds(0),
-              maxTtl: cdk.Duration.seconds(86400),
-              defaultTtl: cdk.Duration.seconds(3600),
+          securityPolicy: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2021,
+          aliases: domainNames.length > 0 ? domainNames : undefined,
+        },
+      );
+    }
+
+    const cloudFrontWebDistribution = new cloudfront.CloudFrontWebDistribution(
+      this,
+      "CDN",
+      {
+        comment: "Playground Front Distribution " + stage,
+        originConfigs: [
+          {
+            s3OriginSource: {
+              s3BucketSource: s3Bucket,
             },
-          ],
-        },
-      ],
-      viewerCertificate: viewerCertificate,
-      errorConfigurations: [
-        {
-          errorCode: 403,
-          responseCode: 200,
-          responsePagePath: '/index.html',
-          errorCachingMinTtl: 0,
-        },
-      ],
-    })
-    
-    const cfnDistribution = cloudFrontWebDistribution.node.defaultChild as cloudfront.CfnDistribution
+            behaviors: [
+              {
+                isDefaultBehavior: true,
+                allowedMethods: cloudfront.CloudFrontAllowedMethods.GET_HEAD,
+                compress: true,
+                cachedMethods:
+                  cloudfront.CloudFrontAllowedCachedMethods.GET_HEAD,
+                viewerProtocolPolicy:
+                  cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+                minTtl: cdk.Duration.seconds(0),
+                maxTtl: cdk.Duration.seconds(86400),
+                defaultTtl: cdk.Duration.seconds(3600),
+              },
+            ],
+          },
+        ],
+        viewerCertificate: viewerCertificate,
+        errorConfigurations: [
+          {
+            errorCode: 403,
+            responseCode: 200,
+            responsePagePath: "/index.html",
+            errorCachingMinTtl: 0,
+          },
+        ],
+      },
+    );
 
-    cfnDistribution.addPropertyOverride('DistributionConfig.Origins.0.OriginAccessControlId', oac.getAtt('Id'))
+    const cfnDistribution = cloudFrontWebDistribution.node
+      .defaultChild as cloudfront.CfnDistribution;
 
-    
+    cfnDistribution.addPropertyOverride(
+      "DistributionConfig.Origins.0.OriginAccessControlId",
+      oac.getAtt("Id"),
+    );
+
     s3Bucket.addToResourcePolicy(
       new iam.PolicyStatement({
         effect: iam.Effect.ALLOW,
-        actions: ['s3:GetObject'],
-        principals: [new iam.ServicePrincipal('cloudfront.amazonaws.com')],
-        resources: [s3Bucket.arnForObjects('*')],
+        actions: ["s3:GetObject"],
+        principals: [new iam.ServicePrincipal("cloudfront.amazonaws.com")],
+        resources: [s3Bucket.arnForObjects("*")],
       }),
-    )  
+    );
 
-    if (stage === 'prod') {
-      const zone = route53.HostedZone.fromHostedZoneAttributes(this, projectName + 'HostedZone-' + stage, {
-        hostedZoneId: hostedZoneIdValue,
-        zoneName: alternativeDomain,
+    if (domainNames.length > 0 && hostedZoneId && hostedZoneName) {
+      const hostedZone = route53.HostedZone.fromHostedZoneAttributes(
+        this,
+        "HostedZone",
+        {
+          hostedZoneId: hostedZoneId,
+          zoneName: hostedZoneName,
+        },
+      );
+
+      // Criar um registro para cada domain name alternativo
+      domainNames.forEach((domain, index) => {
+        new route53.ARecord(this, `CloudFrontARecord-${stage}-${index}`, {
+          zone: hostedZone,
+          recordName: domain,
+          target: route53.RecordTarget.fromAlias(
+            new route53Targets.CloudFrontTarget(cloudFrontWebDistribution),
+          ),
+        });
+
+        // Criar também registro AAAA para IPv6
+        new route53.AaaaRecord(this, `CloudFrontAAAARecord-${stage}-${index}`, {
+          zone: hostedZone,
+          recordName: domain,
+          target: route53.RecordTarget.fromAlias(
+            new route53Targets.CloudFrontTarget(cloudFrontWebDistribution),
+          ),
+        });
       });
-          
-      new route53.ARecord(this, projectName + 'AliasRecord-' + stage, {
-        zone: zone,
-        recordName: alternativeDomain,
-        target: route53.RecordTarget.fromAlias(new route53Targets.CloudFrontTarget(cloudFrontWebDistribution)),
-      });
+    } else if (domainNames.length > 0) {
+      console.warn(
+        "Domain names alternativos fornecidos, mas HOSTED_ZONE_ID ou HOSTED_ZONE_NAME não configurados. Registros DNS não serão criados.",
+      );
     }
-      
-    new cdk.CfnOutput(this, projectName + 'BucketName-' + stage, {
+
+    new cdk.CfnOutput(this, "PlaygroundFrontBucketName-" + stage, {
       value: s3Bucket.bucketName,
     });
 
-    new cdk.CfnOutput(this, projectName + 'DistributionId-' + stage, {
+    new cdk.CfnOutput(this, "PlaygroundFrontDistributionId-" + stage, {
       value: cloudFrontWebDistribution.distributionId,
     });
 
-    new cdk.CfnOutput(this, projectName + 'DistributionDomainName-' + stage, {
+    new cdk.CfnOutput(this, "PlaygroundFrontDistributionDomainName-" + stage, {
       value: cloudFrontWebDistribution.distributionDomainName,
     });
-    
-
   }
 }
